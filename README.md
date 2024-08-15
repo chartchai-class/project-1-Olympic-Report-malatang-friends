@@ -1,8 +1,24 @@
-# Vue 3 + TypeScript + Vite
-
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+# Olympic 2024 report (Combo-based first-term Project)
 
 Please ```npm i ``` after you clone the project. 
+
 Then ```npm run dev ```
+
+Before commit, please ``` npm run format ``` to be standardize our code base. 
+
+Please pull request to the branch ``` testing ``` .
+
+After PR , please remind to project maintainer in MSTeams. 
+
+Thank you for your contribution, Mate!!
+
+Have a fun coding day!!!🤩
+
+## Project Maintainers 
+
+
+652115513 - Naw Gloria Win Nyunt ( github username:  [@gloriabee](https://github.com/gloriabee) )
+
+652115519
+
+652115502 - Aye Nyein San ( github username: [@aye-nyeinSan](https://github.com/aye-nyeinSan)  )
