@@ -7,8 +7,15 @@ export default {
         sp: '0 3px 12px 0 rgba(0, 0, 0, 0.2)',
       },
     },
+    
+    backgroundColor: {
+      primaryBlue: '#1A3A63',
+      secondaryBlue: '#0095E9',
+      danger: '#e3342f',
+    },
     fontFamily: {
       sans: ['Avenir', 'Helvetica', 'Arial', 'sans-serif'],
+      Poppin: "Poppins', sans-serif",
     },
     //this is animation
     animation: {
