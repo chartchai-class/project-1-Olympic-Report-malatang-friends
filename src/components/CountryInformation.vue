@@ -26,6 +26,7 @@
 </script>
 <template>
   <div class="bg-white px-8">
+
     <h1 class="font-semibold text-2xl text-sky-900 my-2">
       Country Information
     </h1>
@@ -42,6 +43,7 @@
     </h1>
     <p v-if="country">
       {{ displayextract() }}
+
     </p>
     <button
       @click="toogleExtract"

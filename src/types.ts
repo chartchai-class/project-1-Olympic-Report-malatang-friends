@@ -27,3 +27,7 @@ export interface Thumbnail {
   width: number;
   height: number;
 }
+
+export interface CommentState{
+    comments: string[]
+}
