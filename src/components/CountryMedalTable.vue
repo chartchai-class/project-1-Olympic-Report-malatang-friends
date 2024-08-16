@@ -1,30 +1,47 @@
 <script setup lang="ts">
+   
 </script>
 <template>
-    <table class="table-auto">
-  <thead>
-    <tr>
-      <th>Song</th>
-      <th>Artist</th>
-      <th>Year</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-      <td>Malcolm Lockyer</td>
-      <td>1961</td>
-    </tr>
-    <tr>
-      <td>Witchy Woman</td>
-      <td>The Eagles</td>
-      <td>1972</td>
-    </tr>
-    <tr>
-      <td>Shining Star</td>
-      <td>Earth, Wind, and Fire</td>
-      <td>1975</td>
-    </tr>
-  </tbody>
-</table>
+  <div class="px-8">
+    <h1 class="font-poppins font-semibold text-2xl text-sky-900 mb-8">Lists of Sports</h1>
+    
+    <table class="table-auto w-full  rounded border-separate border-spacing-y-3">
+        <thead class="text-left bg-gray-900  tracking-wider">
+          <tr>
+            <th class="p-3 ">Sports Name</th>
+            <th class="p-3 ">Gold</th>
+            <th class="p-3 ">Silver</th>
+            <th class="p-3 ">Bronze</th>
+            <th class="p-3 ">Total</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr class="odd:bg-primaryGreen even:bg-primaryGrey mt-6 text-white rounded">
+                <td class="p-3">Swimming</td>
+                <td class="p-3">5</td>
+                <td class="p-3">4</td>
+                <td class="p-3">4</td>
+                <td class="p-3">13</td>
+          </tr>
+
+          <tr class="odd:bg-primaryGreen even:bg-primaryGrey mt-6 text-white rounded">
+                <td class="p-3">Badminton</td>
+                <td class="p-3">5</td>
+                <td class="p-3">4</td>
+                <td class="p-3">4</td>
+                <td class="p-3">13</td>
+          </tr>
+        </tbody>
+    </table>
+
+
+
+  </div>
+    
 </template>
+
+<style>
+
+
+</style>
