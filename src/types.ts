@@ -15,7 +15,7 @@ export interface Normalized {
   to: string;
 }
 
- export interface Page {
+export interface Page {
   pageid: number;
   ns: number;
   title: string;
@@ -28,6 +28,6 @@ export interface Thumbnail {
   height: number;
 }
 
-export interface CommentState{
-    comments: string[]
+export interface CommentState {
+  comments: string[];
 }

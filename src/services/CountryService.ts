@@ -1,6 +1,5 @@
 import axios, { type AxiosResponse } from 'axios';
 
-
 const CountryApiClient = axios.create({
   baseURL: 'https://en.wikipedia.org/w/api.php',
   withCredentials: false,
@@ -9,7 +8,6 @@ const CountryApiClient = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
 
 export default {
   async getCountryDetails(country: string) {
@@ -27,12 +25,8 @@ export default {
     });
 
     // Assuming the API returns data in a field named 'query.pages'
-    const page = response.data.query.pages[Object.keys(response.data.query.pages)[0]];
+    const page =
+      response.data.query.pages[Object.keys(response.data.query.pages)[0]];
     return page;
   },
- 
-    
-
-   
-  
 };
