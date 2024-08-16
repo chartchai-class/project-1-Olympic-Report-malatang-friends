@@ -12,10 +12,12 @@ export default {
       primaryBlue: '#1A3A63',
       secondaryBlue: '#0095E9',
       danger: '#e3342f',
+      primaryGreen:"#72C3CA",
+      primaryGrey:"#91ADC1"
     },
     fontFamily: {
-      sans: ['Avenir', 'Helvetica', 'Arial', 'sans-serif'],
-      Poppin: "Poppins', sans-serif",
+      'sans': ['Avenir', 'Helvetica', 'Arial', 'sans-serif'],
+      'poppins': ["Poppins"],
     },
     //this is animation
     animation: {
