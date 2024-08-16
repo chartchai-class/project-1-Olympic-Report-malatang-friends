@@ -9,6 +9,7 @@ export default {
     },
     
     backgroundColor: {
+      white:'#ffffff',
       primaryBlue: '#1A3A63',
       secondaryBlue: '#0095E9',
       danger: '#e3342f',

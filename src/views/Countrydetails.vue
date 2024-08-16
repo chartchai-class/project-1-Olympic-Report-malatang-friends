@@ -2,7 +2,7 @@
    import DetailsHero from '@/components/DetailsHero.vue';
    import CountryInformation from '@/components/CountryInformation.vue';
    import CountryMedalTable from '@/components/CountryMedalTable.vue';
-   
+   import Comments from '@/components/Comments.vue';
 </script>
 <template>
  
@@ -18,13 +18,7 @@
          </div>
         
       </div>
- 
  </div>
-
- 
-
-
- 
-    
+<Comments/>
 
 </template>
