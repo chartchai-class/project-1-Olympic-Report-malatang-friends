@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import background from '@/assets/background.png';
-  import logo from '@/assets/olympic.png';
+  import logo from '@/assets/OlympicLogoWhite.png';
 </script>
 <template>
   <div
