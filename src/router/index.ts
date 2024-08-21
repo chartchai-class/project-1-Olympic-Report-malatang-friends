@@ -3,13 +3,13 @@ import Countrydetails from '@/views/Countrydetails.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  
-    routes: [
-        {
-            path: '/countrydetails',
-            name: 'CountryDetails',
-            component: Countrydetails
-        }
-    ]
+
+  routes: [
+    {
+      path: '/countrydetails',
+      name: 'CountryDetails',
+      component: Countrydetails,
+    },
+  ],
 });
 export default router;
