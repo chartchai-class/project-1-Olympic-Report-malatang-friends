@@ -31,3 +31,15 @@ export interface Thumbnail {
 export interface CommentState {
   comments: string[];
 }
+
+export interface MedalRank {
+  id: string;
+  name: string;
+  flag_url: string;
+  gold_medals: number;
+  silver_medals: number;
+  bronze_medals: number;
+  total_medals: number;
+  rank: number;
+  rank_total_medals: number;
+}

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Countrydetails from '@/views/Countrydetails.vue';
 import NotFound from '@/views/NotFound.vue';
+import Homeview from '@/views/Homeview.vue';
 import NetworkError from '@/views/NetworkError.vue';
 import nProgress from 'nprogress';
 
@@ -8,6 +9,12 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 
   routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: Homeview,
+      props: (route)=> ({ page: parseInt(route.query.page?.toString() || '1')})
+    },
     {
       path: '/countrydetails',
       name: 'CountryDetails',
@@ -18,7 +25,6 @@ const router = createRouter({
       name: '404-notfound',
       component: NotFound,
       props: true,
-  
     },
     {
       path: '/networkError',
