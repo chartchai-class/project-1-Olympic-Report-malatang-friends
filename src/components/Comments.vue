@@ -16,15 +16,23 @@
 </script>
 <template>
   <div
-    class="w-full py-5 bg-primaryBlue flex flex-col justify-center items-center"
+    class="w-full  bg-primaryBlue flex flex-col justify-center items-center"
   >
-    <h1 class="text-center font-poppins font-semibold text-2xl text-white">
-      Cheerup Comments
+  <div class="flex flex-row items-center mx-3">
+  <h1 class="text-center font-poppins font-semibold text-2xl text-white animate-wiggle">
+      Cheer Up Comments
+
     </h1>
+    <div style="width:50%;height:0;padding-bottom:100%;position:relative;">
+        <iframe src="https://giphy.com/embed/8YBx8YADjme8OfSBxT" width="80%" height="80%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen>
+        </iframe>
+      </div>
+  </div>
+  
 
     <form @submit.prevent="submitComment">
       <div class="w-full mb-4 rounded-lg">
-        <div class="bg-white rounded-t-lg mt-4">
+        <div class="bg-white rounded-t-lg ">
           <textarea
             v-model="commentInput"
             id="comment"
@@ -37,7 +45,9 @@
         </div>
         <button
           type="submit"
-          class="inline-flex items-center mt-2 py-2.5 px-4 text-xs font-medium text-center text-black bg-white rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+          class="inline-flex items-center mt-3 py-2.5 px-4 text-xs font-medium text-center text-black bg-white rounded-lg 
+          focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900
+          hover:bg-secondaryBlue  hover:text-white hover:ring hover:ring-green-300 hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"
         >
           Post comment
         </button>
@@ -55,7 +65,7 @@
             class="mr-2 w-6 h-6 rounded-full"
             src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
             alt="User 1"
-          />User 1
+          />User {{ index + 1 }}
         </p>
         <p class="text-white pl-4">
           {{ comment }}
