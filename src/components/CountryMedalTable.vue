@@ -29,13 +29,14 @@ import { type Sport } from '@/types';
         <tr 
           v-for="sport in props.sports"
           :key="sport.name"
-          class="odd:bg-primaryGreen even:bg-primaryGrey mt-6 text-white rounded"
+          class="odd:bg-primaryGreen even:bg-primaryGrey mt-6 text-white rounded hover:text-black"
         >
           <td class="p-3">{{ sport.name }}</td>
           <td class="p-3">{{ sport.gold }}</td>
           <td class="p-3">{{sport.silver}}</td>
           <td class="p-3">{{sport.bronze}}</td>
           <td class="p-3">{{ sport.total }}</td>
+
         </tr>
       </tbody>
     </table>
