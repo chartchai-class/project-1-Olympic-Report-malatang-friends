@@ -18,7 +18,6 @@ const router = createRouter({
       name: '404-notfound',
       component: NotFound,
       props: true,
-  
     },
     {
       path: '/networkError',
