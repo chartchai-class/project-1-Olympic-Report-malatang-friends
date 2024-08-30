@@ -18,7 +18,7 @@
 
       <tbody>
         <tr
-          class="odd:bg-primaryGreen even:bg-primaryGrey mt-6 text-white rounded"
+          class="odd:bg-primaryGreen even:bg-primaryGrey mt-6 text-white rounded hover:text-black"
         >
           <td class="p-3">Swimming</td>
           <td class="p-3">5</td>
@@ -28,7 +28,7 @@
         </tr>
 
         <tr
-          class="odd:bg-primaryGreen even:bg-primaryGrey mt-6 text-white rounded"
+          class="odd:bg-primaryGreen even:bg-primaryGrey mt-6 text-white rounded hover:text-black"
         >
           <td class="p-3">Badminton</td>
           <td class="p-3">5</td>
