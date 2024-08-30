@@ -1,4 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { defineProps } from 'vue';
+import { type Sport } from '@/types';
+
+  const props=defineProps<{
+    sports: Sport[];
+  }>();
+</script>
+
+
 <template>
   <div class="px-8">
     <h1 class="font-poppins font-semibold text-2xl text-sky-900 mb-8">
@@ -17,24 +26,16 @@
       </thead>
 
       <tbody>
-        <tr
+        <tr 
+          v-for="sport in props.sports"
+          :key="sport.name"
           class="odd:bg-primaryGreen even:bg-primaryGrey mt-6 text-white rounded"
         >
-          <td class="p-3">Swimming</td>
-          <td class="p-3">5</td>
-          <td class="p-3">4</td>
-          <td class="p-3">4</td>
-          <td class="p-3">13</td>
-        </tr>
-
-        <tr
-          class="odd:bg-primaryGreen even:bg-primaryGrey mt-6 text-white rounded"
-        >
-          <td class="p-3">Badminton</td>
-          <td class="p-3">5</td>
-          <td class="p-3">4</td>
-          <td class="p-3">4</td>
-          <td class="p-3">13</td>
+          <td class="p-3">{{ sport.name }}</td>
+          <td class="p-3">{{ sport.gold }}</td>
+          <td class="p-3">{{sport.silver}}</td>
+          <td class="p-3">{{sport.bronze}}</td>
+          <td class="p-3">{{ sport.total }}</td>
         </tr>
       </tbody>
     </table>

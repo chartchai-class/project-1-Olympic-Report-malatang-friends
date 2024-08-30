@@ -3,15 +3,25 @@ import Countrydetails from '@/views/Countrydetails.vue';
 import NotFound from '@/views/NotFound.vue';
 import NetworkError from '@/views/NetworkError.vue';
 import nProgress from 'nprogress';
+import HomeView from '@/views/HomeView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 
   routes: [
     {
-      path: '/countrydetails',
+      path:'/',
+      name:'home-view',
+      component:HomeView
+    },
+
+    {
+      path: '/countrydetails/:id',
       name: 'CountryDetails',
       component: Countrydetails,
+      props:(route)=>({
+        id:route.params.id
+      })
     },
     {
       path: '/404/notFound',
