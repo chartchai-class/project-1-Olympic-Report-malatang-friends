@@ -27,7 +27,6 @@ import { useRoute } from 'vue-router';
         .getCountryDetails(countryId)
         .then((response) => {
           country.value = response;
-          console.log('Country:', country.value);
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -38,8 +37,9 @@ import { useRoute } from 'vue-router';
         OlympicAPIServices
         .getMedalWithSport(countryId)
         .then((response)=>{
-          if(response.data && Array.isArray(response.data)){
-            const countryData=response.data.find((item => item.id===countryId));
+          console.log(response.data.data)
+          if(response.data && response.data.data && Array.isArray(response.data.data)){
+            const countryData=response.data.data.find((item:Medal) => item.id===countryId);
               if(countryData){
                 medals.value=countryData;
               }
