@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import { type Sport } from '@/types';
-import  gold  from "../assets/gold1.png";
-import silver  from "../assets/silver1.png";
-import bronze  from "../assets/bronze1.png";
+import  gold  from "@/assets/gold1.png";
+import silver  from "@/assets/silver1.png";
+import bronze  from "@/assets/bronze1.png";
 
   const props=defineProps<{
     sports: Sport[];
@@ -28,7 +28,7 @@ import bronze  from "../assets/bronze1.png";
              <img :src="silver" alt="silver-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
           </th>
           <th class="p-3">Bronze
-             <img :src="bronze" alt="silver-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
+             <img :src="bronze" alt="bronze-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
           </th>
           <th class="p-3">Total</th>
         </tr>
