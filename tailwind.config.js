@@ -8,6 +8,10 @@ export default {
       },
     },
 
+    backgroundImage: {
+      'backG-pattern': "url('./src/assets/background.png')",
+    },
+    
     backgroundColor: {
       white: '#ffffff',
       primaryBlue: '#1A3A63',
