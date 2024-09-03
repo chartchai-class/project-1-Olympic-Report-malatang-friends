@@ -70,6 +70,7 @@
           </tr>
         </thead>
         <tbody>
+          
           <medalTable v-for="ranking in ranks" :key="ranking.rank" :ranking="ranking"/>
         </tbody>
     </table>
