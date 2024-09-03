@@ -8,6 +8,10 @@
   import background from '@/assets/background.png';
   import logo from '@/assets/OlympicLogoWhite.png';
 
+  import  gold  from "@/assets/gold1.png";
+import silver  from "@/assets/silver1.png";
+import bronze  from "@/assets/bronze1.png";
+
   const router = useRouter()
 
   const ranks=ref<MedalRank[] | null>(null)
@@ -50,24 +54,30 @@
       <inputBar />
     </div>
     <div class="flex flex-col items-center">
-      <h1 class="font-poppins font-semibold text-2xl text-sky-900 mb-8">
+      <h1 class="font-poppins font-semibold text-2xl text-white mb-8">
         2024 Paris Olympic Medal Ranking
       </h1>
       <table class="table-auto w-full rounded border-separate border-spacing-y-3 px-20">
-        <thead class="text-left bg-gray-900 tracking-wider">
+        <thead class=" sticky top-0  bg-primaryBlue text-left bg-gray-900 tracking-wider text-white  ">
           <tr>
             <th class="p-3 text-center">Rank</th>
             <th class="p-2 text-white text-opacity-0 text-center ">Flag</th>
             <th class="p-3 text-center">Country</th>
-            <th class="p-3 text-center">Gold</th>
-            <th class="p-3 text-center">Silver</th>
-            <th class="p-3 text-center">Bronze</th>
+            <th class="p-3 text-center">Gold
+               <img :src="gold" alt="gold-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
+            </th>
+            <th class="p-3 text-center">Silver
+               <img :src="silver" alt="silver-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
+            </th>
+            <th class="p-3 text-center">Bronze
+              <img :src="bronze" alt="bronze-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
+            </th>
             <th class="p-3 text-center">Total</th>
           </tr>
         </thead>
         <tbody>
           
-          <medalTable v-for="ranking in ranks" :key="ranking.rank" :ranking="ranking"/>
+          <medalTable v-for="ranking in ranks" :key="ranking.rank" :ranking="ranking" />
         </tbody>
     </table>
     </div>
