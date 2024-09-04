@@ -51,7 +51,7 @@ import bronze  from "@/assets/bronze1.png";
 </script>
 
 <template>
-<div class="bg-scroll bg-no-repeat bg-cover bg-center text-center"  :style="{ backgroundImage: `linear-gradient(0deg, rgba(0, 149, 233, 0.7) 8%, rgba(26, 58, 99, 0.7) 42%), url(${ background })` }">
+<div class="bg-scroll bg-no-repeat bg-cover bg-center text-center w-full"  :style="{ backgroundImage: `linear-gradient(0deg, rgba(0, 149, 233, 0.7) 8%, rgba(26, 58, 99, 0.7) 42%), url(${ background })` }">
     <!--new element-->
     <div class="justify-center flex">
     <img
@@ -63,17 +63,19 @@ import bronze  from "@/assets/bronze1.png";
     <div class="pt-10 mx-10 mb-10">
       <inputBar />
     </div>
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center w-full">
       <h1 class="font-poppins font-semibold text-2xl text-white mb-8">
         2024 Paris Olympic Medal Ranking
       </h1>
 
-     <div class="overflow-x-auto">
-        <table class="table-auto min-w-full rounded border-separate border-spacing-y-3">
+
+      <div class="overflow-x-auto max-w-full">
+        <div class="overflow-hidden">
+        <table class="table-auto w-full rounded border-separate border-spacing-y-3 min-w-[500px]">
         <thead class="sticky top-0  bg-primaryBlue text-left bg-gray-900 tracking-wider text-white  ">
           <tr>
             <th class="p-3 text-center">Rank</th>
-            <th class="p-2 text-white text-opacity-0 text-center ">Flag</th>
+            <th class="p-3 text-white text-opacity-0 text-center ">Flag</th>
             <th class="p-3 text-center">Country</th>
             <th class="p-3 text-center">Gold
                <img :src="gold" alt="gold-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
@@ -88,11 +90,12 @@ import bronze  from "@/assets/bronze1.png";
           </tr>
         </thead>
         <tbody>
-          
           <medalTable v-for="ranking in ranks" :key="ranking.rank" :ranking="ranking" />
         </tbody>
     </table>
      </div>
+      </div>
+    
 
     <div class="flex pb-28 pt-8 pagination">
       <RouterLink class="flex items-center justify-center px-4 h-10 text-base font-medium text-black bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
