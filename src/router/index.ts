@@ -3,7 +3,7 @@ import Countrydetails from '@/views/Countrydetails.vue';
 import NotFound from '@/views/NotFound.vue';
 import NetworkError from '@/views/NetworkError.vue';
 import nProgress from 'nprogress';
-import HomeView from '@/views/HomeView.vue';
+import HomeView from '@/views/Homeview.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,9 +11,12 @@ const router = createRouter({
   routes: [
     {
       path:'/',
-      name:'home-view',
+      name:'home',
       component:HomeView,
-      props: (route)=> ({ page: parseInt(route.query.page?.toString() || '1')})
+      props: (route) => ({
+        page: parseInt(route.query.page?.toString() || '1'),
+        pageSize: Number(route.query.pageSize)
+      })
     },
 
     {

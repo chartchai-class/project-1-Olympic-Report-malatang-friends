@@ -13,18 +13,25 @@
   const ranks=ref<MedalRank[] | null>(null)
 
   const totalRanks=ref(0)
-  const hasNextPage = computed(() => {
-    const totalPages = Math.ceil(totalRanks.value/2)
-    return page.value < totalPages
-  })
+  const pageSize = ref(10)
+  const currentPage = ref(1)
 
   const props = defineProps({
     page:{
       type: Number,
       required: true
+    },
+    pageSize:{
+      type:Number,
+      required:true
     }
   })
-  const page = computed(() => props.page)
+  const page = computed(() => props.page);
+
+  const hasNextPage=computed(()=>{
+    const totalPages = Math.ceil(totalRanks.value/pageSize.value)
+    return currentPage.value < totalPages
+  })
 
   onMounted(()=>{
     watchEffect(()=>{
@@ -70,39 +77,25 @@
           </tr>
         </thead>
         <tbody>
-          
           <medalTable v-for="ranking in ranks" :key="ranking.rank" :ranking="ranking"/>
         </tbody>
-    </table>
-    <div class="flex pb-28 pt-8">
-  <RouterLink class="flex items-center justify-center px-4 h-10 text-base font-medium text-black bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-  :to="{name:'home', query:{page:page-1}}"
-  rel="prev"
-  >Prev
-  </RouterLink>
-
-  <RouterLink class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-black bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-  :to="{name:'home', query:{page:page+1}}"
-  rel="next"
-  >Next
-  </RouterLink>
-</div>
+      </table>
+      <div class="flex pb-28 pt-8 pagination">
+      <RouterLink class="flex items-center justify-center px-4 h-10 text-base font-medium text-black bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      :to="{name:'home', query: { page: page - 1, pageSize: pageSize } }"
+      rel="prev"
+      v-if="page != 1"
+      >Prev
+      </RouterLink>
+    
+      <!-- v-if="hasNextPage" -->
+      <RouterLink class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-black bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      :to="{name:'home', query: { page: page + 1, pageSize: pageSize } }"
+      rel="next"
+      v-if="hasNextPage"
+      >Next
+      </RouterLink>
+    </div>
+    </div>
   </div>
-  
-  </div>
-
-
-    <!-- <div>
-      <RouterLink class="flex items-center justify-center px-3 h-8 text-[100px] font-medium text-green-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-    :to="{name:'home', query:{page:page-1}}"
-    rel="prev"
-    v-if="page != 1"
-    >Prev</RouterLink>
-
-    <RouterLink class="flex items-center justify-center px-3 h-8 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-    :to="{name:'home', query:{page:page+1}}"
-    rel="next"
-    v-if="hasNextPage"
-    >Next</RouterLink>
-    </div> -->
 </template>

@@ -29,7 +29,7 @@ export default{
         return apiClient.get('/')
     },
     getRanks(perPage: Number, page:Number){
-        return apiClient.get('/?_limit=' + perPage + '&_page=' + page)
+        return apiClient.get('/'+'?_limit=' + perPage + '&_page=' + page)
     },
     getMedalWithSport(id:string){
         return apiClient.get('/',{
