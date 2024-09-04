@@ -26,7 +26,10 @@
     watchEffect(()=>{
       OlympicService.getRanks(10, page.value)
       .then((response)=>{
-        ranks.value=response.data.data
+        const allData=response.data.data
+        const startIndex=(page.value-1)*10;
+        const endIndex=startIndex+10;
+        ranks.value=allData.slice(startIndex,endIndex);
         console.log(ranks.value)
       })
       .catch(()=>{
