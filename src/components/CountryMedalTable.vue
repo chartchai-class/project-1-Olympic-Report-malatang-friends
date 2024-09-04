@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import { type Sport } from '@/types';
+import  gold  from "@/assets/gold1.png";
+import silver  from "@/assets/silver1.png";
+import bronze  from "@/assets/bronze1.png";
 
   const props=defineProps<{
     sports: Sport[];
@@ -13,19 +16,25 @@ import { type Sport } from '@/types';
     <h1 class="font-poppins font-semibold text-2xl text-sky-900 mb-8">
       Lists of Sports
     </h1>
-
-    <table class="table-auto w-full rounded border-separate border-spacing-y-3">
-      <thead class="text-left bg-gray-900 tracking-wider">
+     <div class="overflow-y-scroll h-96">
+       <table class="table-auto w-full rounded border-separate border-spacing-y-3">
+      <thead class="sticky top-0  bg-primaryBlue text-left bg-gray-900 tracking-wider text-white">
         <tr>
           <th class="p-3">Sports Name</th>
-          <th class="p-3">Gold</th>
-          <th class="p-3">Silver</th>
-          <th class="p-3">Bronze</th>
+          <th class="p-3">Gold 
+            <img :src="gold" alt="gold-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
+          </th>
+          <th class="p-3">Silver
+             <img :src="silver" alt="silver-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
+          </th>
+          <th class="p-3">Bronze
+             <img :src="bronze" alt="bronze-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
+          </th>
           <th class="p-3">Total</th>
         </tr>
       </thead>
-
-      <tbody>
+     
+          <tbody>
         <tr 
           v-for="sport in props.sports"
           :key="sport.name"
@@ -39,8 +48,13 @@ import { type Sport } from '@/types';
 
         </tr>
       </tbody>
+      
+    
+      
     </table>
+   </div>
+   
   </div>
 </template>
 
-<style></style>
+

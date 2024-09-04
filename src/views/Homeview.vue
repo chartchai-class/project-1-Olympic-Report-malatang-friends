@@ -1,54 +1,64 @@
 <script setup lang="ts">
-  import medalTable from '@/components/homepageMedalTable.vue'
-  import { type MedalRank } from '@/types'
-  import {ref,onMounted,computed,watchEffect} from 'vue'
-  import OlympicService from '@/services/OlympicAPIServices'
-  import { useRouter } from 'vue-router'
-  import inputBar from '@/components/inputBar.vue'
-  import background from '@/assets/background.png';
-  import logo from '@/assets/OlympicLogoWhite.png';
+import medalTable from '@/components/homepageMedalTable.vue';
+import { type MedalRank } from '@/types';
+import { ref, onMounted, computed, watchEffect, inject,watch } from 'vue';
+import OlympicService from '@/services/OlympicAPIServices';
+import { useRouter } from 'vue-router';
+import inputBar from '@/components/inputBar.vue';
+import background from '@/assets/background.png';
+import logo from '@/assets/OlympicLogoWhite.png';
+import gold from "@/assets/gold1.png";
+import silver from "@/assets/silver1.png";
+import bronze from "@/assets/bronze1.png";
 
-  import  gold  from "@/assets/gold1.png";
-import silver  from "@/assets/silver1.png";
-import bronze  from "@/assets/bronze1.png";
+const router = useRouter();
+const ranks = ref<MedalRank[] | null>(null);
+const totalRanks = ref(0);
 
-  const router = useRouter()
+const props = defineProps({
+  page: {
+    type: Number,
+    required: true
+  },
+  perPage: {
+    type: Number,
+    default: 10,
+    required: true
+  }
+});
 
-  const ranks=ref<MedalRank[] | null>(null)
-  const totalRanks=ref(0)
+const perPageInjected = inject('pageOfNumber', ref(props.perPage));
+const perPage = ref(perPageInjected.value || props.perPage);
 
-  const hasNextPage=computed(()=>{
-    const totalPages=Math.ceil(totalRanks.value/10)
-    return page.value<totalPages
-  })
+// Handle reactivity when injected `perPage` is updated
+watch(perPageInjected, (newValue) => {
+  perPage.value = newValue || props.perPage;
+});
 
-  const props = defineProps({
-    page:{
-      type: Number,
-      required: true
-    }
-  })
-  const page = computed(() => props.page)
+const page = computed(() => props.page);
 
+const hasNextPage = computed(() => {
+  const totalPages = Math.ceil(totalRanks.value / perPage.value);
+  return page.value < totalPages;
+});
 
-
-  onMounted(()=>{
-    watchEffect(()=>{
-      OlympicService.getRanks(10, page.value)
-      .then((response)=>{
-        const allData=response.data.data;
-        const startIndex = (page.value - 1) * 10;
-        const endIndex = startIndex + 10;
-        ranks.value=allData.slice(startIndex,endIndex);
-        totalRanks.value=allData.length;
-       
+onMounted(() => {
+  watchEffect(() => {
+    OlympicService.getRanks(perPage.value, page.value)
+      .then((response) => {
+        const allData = response.data.data;
+        const startIndex = (page.value - 1) * perPage.value;
+        const endIndex = startIndex + perPage.value;
+        ranks.value = allData.slice(startIndex, endIndex);
+        totalRanks.value = allData.length;
       })
-      .catch(()=>{
-        router.push({name: 'NetworkError'})
-      })
-    })
-  })
+      .catch(() => {
+        router.push({ name: 'NetworkError' });
+      });
+  });
+});
 </script>
+
 
 <template>
 <div class="bg-scroll bg-no-repeat bg-cover bg-center text-center"  :style="{ backgroundImage: `linear-gradient(0deg, rgba(0, 149, 233, 0.7) 8%, rgba(26, 58, 99, 0.7) 42%), url(${ background })` }">
@@ -68,7 +78,7 @@ import bronze  from "@/assets/bronze1.png";
         2024 Paris Olympic Medal Ranking
       </h1>
 
-     <div class="overflow-x-auto">
+      <div class="overflow-x-auto">
         <table class="table-auto min-w-full rounded border-separate border-spacing-y-3">
         <thead class="sticky top-0  bg-primaryBlue text-left bg-gray-900 tracking-wider text-white  ">
           <tr>
@@ -76,10 +86,10 @@ import bronze  from "@/assets/bronze1.png";
             <th class="p-2 text-white text-opacity-0 text-center ">Flag</th>
             <th class="p-3 text-center">Country</th>
             <th class="p-3 text-center">Gold
-               <img :src="gold" alt="gold-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
+              <img :src="gold" alt="gold-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
             </th>
             <th class="p-3 text-center">Silver
-               <img :src="silver" alt="silver-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
+              <img :src="silver" alt="silver-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
             </th>
             <th class="p-3 text-center">Bronze
               <img :src="bronze" alt="bronze-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
@@ -92,7 +102,7 @@ import bronze  from "@/assets/bronze1.png";
           <medalTable v-for="ranking in ranks" :key="ranking.rank" :ranking="ranking" />
         </tbody>
     </table>
-     </div>
+    </div>
 
     <div class="flex pb-28 pt-8 pagination">
       <RouterLink class="flex items-center justify-center px-4 h-10 text-base font-medium text-black bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
