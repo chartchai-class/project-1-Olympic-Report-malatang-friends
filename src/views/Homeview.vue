@@ -7,9 +7,10 @@
   import inputBar from '@/components/inputBar.vue'
   import background from '@/assets/background.png';
   import logo from '@/assets/OlympicLogoWhite.png';
+
   import  gold  from "@/assets/gold1.png";
-  import silver  from "@/assets/silver1.png";
-  import bronze  from "@/assets/bronze1.png";
+import silver  from "@/assets/silver1.png";
+import bronze  from "@/assets/bronze1.png";
 
   const router = useRouter()
 
@@ -36,6 +37,11 @@
       OlympicService.getRanks(10, page.value)
       .then((response)=>{
         const allData=response.data.data;
+        const startIndex = (page.value - 1) * 10;
+        const endIndex = startIndex + 10;
+        ranks.value=allData.slice(startIndex,endIndex);
+        totalRanks.value=allData.length;
+       
       })
       .catch(()=>{
         router.push({name: 'NetworkError'})
@@ -62,7 +68,7 @@
         2024 Paris Olympic Medal Ranking
       </h1>
 
-      <div class="overflow-x-auto">
+     <div class="overflow-x-auto">
         <table class="table-auto min-w-full rounded border-separate border-spacing-y-3">
         <thead class="sticky top-0  bg-primaryBlue text-left bg-gray-900 tracking-wider text-white  ">
           <tr>
@@ -70,10 +76,10 @@
             <th class="p-2 text-white text-opacity-0 text-center ">Flag</th>
             <th class="p-3 text-center">Country</th>
             <th class="p-3 text-center">Gold
-              <img :src="gold" alt="gold-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
+               <img :src="gold" alt="gold-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
             </th>
             <th class="p-3 text-center">Silver
-              <img :src="silver" alt="silver-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
+               <img :src="silver" alt="silver-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
             </th>
             <th class="p-3 text-center">Bronze
               <img :src="bronze" alt="bronze-medal" class="inline-block brightness-100 w-5 h-5 mb-2"/>
@@ -86,7 +92,7 @@
           <medalTable v-for="ranking in ranks" :key="ranking.rank" :ranking="ranking" />
         </tbody>
     </table>
-  </div>
+     </div>
 
     <div class="flex pb-28 pt-8 pagination">
       <RouterLink class="flex items-center justify-center px-4 h-10 text-base font-medium text-black bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
