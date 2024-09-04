@@ -81,6 +81,29 @@ import bronze  from "@/assets/bronze1.png";
         <tbody>
           
           <medalTable v-for="ranking in ranks" :key="ranking.rank" :ranking="ranking" />
+
+          <div class="flex justify-between items-center">
+            <RouterLink
+                class=" text-[#ffffff] text-left"
+                id="page-prev"
+                :to="{ }"
+                rel="prev"
+                
+            >
+             Prev Page</RouterLink
+            >
+
+            <RouterLink
+                class=" text-[#ffffff] text-right"
+                id="page-next"
+                :to="{ }"
+                rel="next"
+                
+            >
+                Next Page
+            </RouterLink>
+        </div>
+        
         </tbody>
     </table>
     </div>
