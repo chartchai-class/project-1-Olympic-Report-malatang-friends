@@ -3,11 +3,13 @@
   import logo from '@/assets/OlympicLogoWhite.png';
 </script>
 <template>
+  
   <div
     class="bg-cover bg-fixed bg-center h-58"
     :style="{ backgroundImage: `url(${background})` }"
-  >
-    <div class="bg-gradient-to-b from-sky-600">
+  >   
+  <div class="bg-gradient-to-b from-sky-600">
+  
       <div class="flex justify-center items-center h-58">
         <RouterLink :to="{name:'home-view'}">
           <img
@@ -17,6 +19,6 @@
         />
         </RouterLink>
       </div>
-    </div>
+      </div>
   </div>
 </template>

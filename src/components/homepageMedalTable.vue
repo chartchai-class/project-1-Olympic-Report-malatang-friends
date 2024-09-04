@@ -19,7 +19,7 @@ function navigateToCountryDetails(id:string){
 
     <tr 
     @click="navigateToCountryDetails(ranking.id)"
-    class="odd:bg-primaryGreen even:bg-primaryGrey mt-6 text-white px-8 rounded-sm cursor-pointer"
+    class="odd:bg-primaryGreen even:bg-primaryGrey mt-6 text-white px-8 rounded-sm cursor-pointer hover:text-black hover:bg-secondaryBlue shadow-lg hover:shadow-indigo-500/4 hover:scale-105 transform transition duration-500 ease-in-out"
     >
       <th class="p-3">{{ranking.rank}}</th>
       <th><img :src="ranking.flag_url" class="w-12 flex bg-right"></img></th>
