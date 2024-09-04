@@ -4,12 +4,21 @@ import { type MedalRank } from '@/types';
 import { ref, onMounted, computed, watchEffect, inject,watch } from 'vue';
 import OlympicService from '@/services/OlympicAPIServices';
 import { useRouter } from 'vue-router';
-import inputBar from '@/components/inputBar.vue';
 import background from '@/assets/background.png';
 import logo from '@/assets/OlympicLogoWhite.png';
 import gold from "@/assets/gold1.png";
 import silver from "@/assets/silver1.png";
 import bronze from "@/assets/bronze1.png";
+import searchLogo from '@/assets/searchlogo.png';
+
+const inputValue = ref<number | null>(null); 
+const defaultperPage = ref<number>(10); 
+
+const handleSearch = (event:Event) => {
+    event.preventDefault();
+    defaultperPage.value = inputValue.value || 10;
+    console.log(defaultperPage.value);
+};
 
 const router = useRouter();
 const ranks = ref<MedalRank[] | null>(null);
@@ -27,28 +36,33 @@ const props = defineProps({
   }
 });
 
-const perPageInjected = inject('pageOfNumber', ref(props.perPage));
-const perPage = ref(perPageInjected.value || props.perPage);
+// provide('pageOfNumber', defaultperPage);
+// const perPageInjected = inject('pageOfNumber', ref(props.perPage));
+
+// console.log(perPageInjected)
+// const perPage = ref(perPageInjected.value);
 
 // Handle reactivity when injected `perPage` is updated
-watch(perPageInjected, (newValue) => {
-  perPage.value = newValue || props.perPage;
-});
+watch(defaultperPage, (newValue) => {
+  if(newValue != undefined && newValue != null){
+    defaultperPage.value = newValue
+  }
+}, {immediate: true});
 
 const page = computed(() => props.page);
 
 const hasNextPage = computed(() => {
-  const totalPages = Math.ceil(totalRanks.value / perPage.value);
+  const totalPages = Math.ceil(totalRanks.value / defaultperPage.value);
   return page.value < totalPages;
 });
 
 onMounted(() => {
   watchEffect(() => {
-    OlympicService.getRanks(perPage.value, page.value)
+    OlympicService.getRanks(defaultperPage.value, page.value)
       .then((response) => {
         const allData = response.data.data;
-        const startIndex = (page.value - 1) * perPage.value;
-        const endIndex = startIndex + perPage.value;
+        const startIndex = (page.value - 1) * defaultperPage.value;
+        const endIndex = startIndex + defaultperPage.value;
         ranks.value = allData.slice(startIndex, endIndex);
         totalRanks.value = allData.length;
       })
@@ -71,7 +85,26 @@ onMounted(() => {
         />
   </div>
     <div class="pt-10 mx-10 mb-10">
-      <inputBar />
+      <!-- <inputBar /> -->
+      <form class=" shadow-lg max-w-md mx-auto hover:scale-105 transform transition duration-500 ease-in-out">   
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg class="h-4 w-4 text-sky-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/>
+            </svg>
+            </div>
+            <form @submit="handleSearch">
+                <input v-model.number="inputValue" type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter number of countries" required />
+                <div class="border-1 border-blue-500">            
+                <button class="text-[#1A3A63] flex  outline-blue-700 absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <img :src="searchLogo" alt="search" class=" mr-1 w-5 h-5"/>
+                    Search</button>
+            </div>
+            </form>
+            
+        </div>
+    </form>
     </div>
     <div class="flex flex-col items-center">
       <h1 class="font-poppins font-semibold text-2xl text-white mb-8">
