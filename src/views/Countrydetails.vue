@@ -15,7 +15,6 @@ import { useRoute } from 'vue-router';
   const country = ref<Page | null>(null);
   const medals=ref<Medal | null>(null);
   
- 
   const route= useRoute();
 
   onMounted(() => {

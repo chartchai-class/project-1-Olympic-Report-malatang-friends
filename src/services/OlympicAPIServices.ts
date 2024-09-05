@@ -11,25 +11,13 @@ const apiClient=axios.create({
 })
 
 
-// const apiClient = axios.create({
-//     baseURL: 'https://apis.codante.io/olympic-games/countries',
-//     withCredentials: false,
-//     headers:{
-//         Accept: 'application/json',
-//         'Content-Type': 'application/json'
-//     }
-// })
-
 export default{
-    // getMedals(){
-    //     return apiClient.get('/')
-    // },
 
     getRank(){
         return apiClient.get('/')
     },
     getRanks(perPage: Number, page:Number){
-        return apiClient.get('/?_limit=' + perPage + '&_page=' + page)
+        return apiClient.get('/'+'?_limit=' + perPage + '&_page=' + page)
     },
     getMedalWithSport(id:string){
         return apiClient.get('/',{

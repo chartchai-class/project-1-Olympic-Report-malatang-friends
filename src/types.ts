@@ -68,3 +68,7 @@ export interface MedalRank {
   rank: number;
   rank_total_medals: number;
 }
+
+export interface Page {
+  pageOfNumber: number;
+}
