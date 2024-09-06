@@ -2,14 +2,11 @@
   import { RouterView } from 'vue-router';
 
   import { SpeedInsights } from '@vercel/speed-insights/vue';
-
 </script>
 
 <template>
   <div>
-    <SpeedInsights/>
+    <SpeedInsights />
     <RouterView />
   </div>
 </template>
-
-

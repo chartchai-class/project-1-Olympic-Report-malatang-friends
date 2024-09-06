@@ -24,7 +24,6 @@
 </script>
 <template>
   <div class="bg-white px-8">
-
     <h1
       class="font-semibold text-2xl text-sky-900 my-2 mb-5 hover:text-blue-500"
     >
@@ -57,7 +56,6 @@
       class="bg-primaryBlue my-2 text-white py-2 px-4 mt-8 rounded-lg shadow-sp hover:bg-secondaryBlue hover:ring hover:ring-green-300 hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"
     >
       {{ showExtract ? 'See Less' : 'See More' }}
-
     </button>
   </div>
 </template>
