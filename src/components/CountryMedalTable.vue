@@ -1,3 +1,4 @@
+
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import { type Sport } from '@/types';

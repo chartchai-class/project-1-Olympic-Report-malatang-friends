@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import DetailsHero from '@/components/DetailsHero.vue';
   import CountryInformation from '@/components/CountryInformation.vue';
+
   import CountryMedalTable from '@/components/CountryMedalTable.vue';
   import Comments from '@/components/Comments.vue';
   import { ref, onMounted, watchEffect } from 'vue';
@@ -69,4 +70,5 @@ import { useRoute } from 'vue-router';
     </div>
   </div>
   <Comments />
+
 </template>

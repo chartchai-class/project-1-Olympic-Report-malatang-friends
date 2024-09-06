@@ -10,6 +10,7 @@ const router = createRouter({
 
   routes: [
     {
+
       path:'/',
       name:'home-view',
       component:HomeView,
@@ -53,5 +54,6 @@ router.beforeEach(() => {
 router.afterEach(() => {
   nProgress.done();
 });
+
 
 export default router;
