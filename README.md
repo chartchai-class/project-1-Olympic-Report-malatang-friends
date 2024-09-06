@@ -25,4 +25,7 @@ Have a fun coding day!!!🤩
 
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/OhXb60Ty)
 
+# Deployed site 
+
+https://project-1-olympic-report-malatang-friends-jyio-fwrbi8nv6.vercel.app
 
