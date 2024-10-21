@@ -4,6 +4,8 @@ import NotFound from '@/views/NotFoundError.vue';
 import NetworkError from '@/views/NetworkError.vue';
 import nProgress from 'nprogress';
 import HomeView from '@/views/Homeview.vue';
+import RegisterView from '@/views/RegisterView.vue';
+import LoginView from '@/views/LoginView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +19,11 @@ const router = createRouter({
         page: parseInt(route.query.page?.toString() || '1'),
       }),
     },
+    {
+      path:'/login',
+      name:'login',
+      component: LoginView
+    },
 
     {
       path: '/countrydetails/:id',
@@ -26,6 +33,12 @@ const router = createRouter({
         id: route.params.id,
       }),
     },
+    {
+      path:'/register',
+      name:'register',
+      component:RegisterView
+    },
+
     {
       path: '/404/notFound',
       name: '404-notfound',
