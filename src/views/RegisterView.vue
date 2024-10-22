@@ -2,6 +2,54 @@
 import InputText from '@/components/InputText.vue';
 import logo from '@/assets/OlympicLogoWhite.png'
 import background from '@/assets/background.png'
+import * as yup from 'yup'
+import { useField,useForm } from 'vee-validate';
+import { useAuthStore } from '@/stores/auth';
+import { useRouter } from 'vue-router';
+
+import { storeToRefs } from 'pinia'
+import { useMessageStore } from '@/stores/message';
+
+const messageStore=useMessageStore()
+const {message}=storeToRefs(messageStore)
+
+
+const router=useRouter()
+const authStore=useAuthStore()
+
+const validationSchema= yup.object({
+        email: yup.string().required('Email is required').email('Input must be an email.'),
+        username: yup.string().required('Username is required'),
+        password: yup.string().required('Password is required').min(5,'The password must be at least 6 characters.')
+})
+
+const {errors,handleSubmit}=useForm({
+  validationSchema,
+  initialValues:{
+    email:'',
+    username:'',
+    password:''
+  }
+})
+
+const {value:email}=useField<string>('email')
+const {value:username}=useField<string>('username')
+const {value:password}=useField<string>('password')
+
+const onSubmit=handleSubmit((values)=>{
+   authStore.register(values.email,values.username,values.password)
+   .then(()=>{
+      router.push({name:'home-view'})
+   })
+   .catch((err)=>{
+      messageStore.updateMessage('could not register')
+      setTimeout(()=>{
+          messageStore.resetMessage()
+      },3000)
+   })
+})
+
+
 </script>
 
 
@@ -13,6 +61,9 @@ import background from '@/assets/background.png'
     }"
   >  
   <div class="flex min-h-screen flex-col justify-center px-4 py-8 sm:px-6 lg:px-8">
+    <div id="flashMessage" class="animate-fade" v-if="message">
+        <h4>{{ message }}</h4>
+      </div>
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <img
         class="mx-auto h-28 w-28"
@@ -26,13 +77,13 @@ import background from '@/assets/background.png'
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <form class="space-y-6" @submit.prevent="">
+        <form class="space-y-6" @submit.prevent="onSubmit">
           <div>
             <label for="email" class="block text-sm font-medium text-gray-700">
               Email address
             </label>
             <div class="mt-1">
-              <InputText type="email" placeholder="Enter your email" />
+              <InputText type="email" v-model="email" placeholder="Enter your email" :error="errors['email']"/>
             </div>
           </div>
 
@@ -41,7 +92,7 @@ import background from '@/assets/background.png'
               Username
             </label>
             <div class="mt-1">
-              <InputText type="text" placeholder="Enter username" />
+              <InputText type="text" v-model="username" placeholder="Enter username" :error="errors['username']"/>
             </div>
           </div>
 
@@ -50,7 +101,7 @@ import background from '@/assets/background.png'
               Password
             </label>
             <div class="mt-1">
-              <InputText type="password" placeholder="Create a password" />
+              <InputText type="password" v-model="password" placeholder="Create a password" :error="errors['password']"/>
             </div>
           </div>
 

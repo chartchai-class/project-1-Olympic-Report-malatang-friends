@@ -1,45 +1,49 @@
 <script setup lang="ts">
     import InputText from '@/components/InputText.vue';
     import * as yup from 'yup'
+    import { storeToRefs } from 'pinia'
     import { useField,useForm } from 'vee-validate';
     import logo from '@/assets/OlympicLogoWhite.png'
     import background from '@/assets/background.png'
-    // import { useAuthStore } from '@/stores/auth';
+    import { useAuthStore } from '@/stores/auth';
     import { useRouter } from 'vue-router';
-    // import { useMessageStore } from '@/stores/message';
 
+    import { useMessageStore } from '@/stores/message';
+    const messageStore=useMessageStore()
+    const {message}=storeToRefs(messageStore)
 
-    // const messageStore=useMessageStore()
     const router=useRouter()
-    // const authStore=useAuthStore()
+    const authStore=useAuthStore()
 
     const validationSchema= yup.object({
-        email: yup.string().required('The email is required'),
-        password: yup.string().required('The password is required')
+        username: yup.string().required('Username is required'),
+        password: yup.string().required('Password is required')
     })
 
     const {errors,handleSubmit}=useForm({
         validationSchema,
         initialValues:{
-            email:'',
+            username:'',
             password:''
         }
     })
-    const {value:email}=useField<string>('email')
+    const {value:username}=useField<string>('username')
     const {value:password}=useField<string>('password')
 
     
     const onSubmit=handleSubmit((values)=>{
-        // authStore.login(values.email,values.password)
-        // .then(()=>{
-        //     router.push({name:'event-list-view'})
-        // })
-        // .catch(()=>{
-        //     messageStore.updateMessage('could not login')
-        //     setTimeout(()=>{
-        //         messageStore.resetMessage()
-        //     },3000)
-        // })
+        authStore.login(values.username,values.password)
+        .then(()=>{
+            router.push({name:'home-view'})
+            
+        })
+        .catch((err)=>{
+            messageStore.updateMessage('could not login')
+            setTimeout(()=>{
+                messageStore.resetMessage()
+            },3000)
+           
+        })
     })
     
 </script>
@@ -52,6 +56,9 @@
     }"
   > 
     <div class="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div id="flashMessage" class="animate-fade" v-if="message">
+        <h4>{{ message }}</h4>
+      </div>
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <img class="mx-auto h-28 w-28" 
             :src=logo
@@ -67,10 +74,10 @@
             <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form class="space-y-6" @submit.prevent="onSubmit">
                 <div>
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">
-                        Email address
+                    <label for="username" class="block text-sm font-medium leading-6 text-gray-900">
+                       Username
                     </label>
-                  <InputText type="text" v-model="email" placeholder="Email address" :error="errors['email']"/>
+                  <InputText type="text" v-model="username" placeholder="Username" :error="errors['username']"/>
                     </div>
 
 

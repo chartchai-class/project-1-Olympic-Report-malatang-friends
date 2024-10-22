@@ -21,7 +21,6 @@ export interface Page {
   title: string;
   thumbnail: Thumbnail;
   extract: string;
-
   sports?: Sport[];
 }
 export interface Thumbnail {
@@ -69,4 +68,13 @@ export interface MedalRank {
 
 export interface Page {
   pageOfNumber: number;
+}
+
+export interface User{
+  id: number
+  name: string
+  roles: string[]
+}
+export interface MessageState {
+  message: string
 }

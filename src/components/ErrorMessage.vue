@@ -10,9 +10,3 @@
     <slot />
    </p>
 </template>
-
-
-
-<style scoped>
-
-</style>
