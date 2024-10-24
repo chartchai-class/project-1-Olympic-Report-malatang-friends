@@ -17,11 +17,11 @@
   const props = defineProps({
   page: {
     type: Number,
-    required: true
+    default: 1
   },
   perPage:{
     type:Number,
-    required:true
+    default:10
   }
 })
 
@@ -29,9 +29,7 @@
 const page = computed(() => props.page);
 const perPage=computed(()=> props.perPage);
 onMounted(()=>{
-  watchEffect(()=>{
-    fetchUsers();
-  })
+ fetchUsers()
 })
 
 function fetchUsers(){

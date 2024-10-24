@@ -11,7 +11,6 @@
   import searchLogo from '@/assets/searchlogo.png';
   import {RouterLink, useRouter } from 'vue-router';
   
-
   const inputValue = ref<number | null>(null);
   const defaultperPage = ref<number>(10);
 

@@ -38,6 +38,7 @@
         authStore.login(values.username,values.password)
         .then(()=>{
             router.push({name:'home-view'})
+            // router.push({name:'users'})
         })
         .catch((err)=>{
             messageStore.updateMessage('could not login')
