@@ -10,9 +10,7 @@
   import bronze from '@/assets/bronze1.png';
   import searchLogo from '@/assets/searchlogo.png';
   import {RouterLink, useRouter } from 'vue-router';
-  import { useAuthStore } from '@/stores/auth';
-  import SvgIcon from '@jamescoyle/vue-icon'
-  import { mdiAccount,mdiAccountPlus,mdiLogin } from '@mdi/js'
+  
 
   const inputValue = ref<number | null>(null);
   const defaultperPage = ref<number>(10);
@@ -73,22 +71,7 @@
   });
 
 
-const authStore=useAuthStore()
 
-function logout(){
-  authStore.logout()
-  router.push({name:'login'})
-}
-
-const token=localStorage.getItem('token')
-const user=localStorage.getItem('user')
-if(token && user)
-{
-  authStore.reload(token,JSON.parse(user))
-}
-else{
-  authStore.logout()
-}
 </script>
 
 <template>
@@ -98,57 +81,6 @@ else{
       backgroundImage: `linear-gradient(0deg, rgba(0, 149, 233, 0.7) 8%, rgba(26, 58, 99, 0.7) 42%), url(${background})`,
     }"
   >
-
-  <header>
-    
-    <div class="wrapper">
-        <nav class="flex py-6">
-          <ul v-if="!authStore.currentUserName" class="flex navbar-nav ml-auto">
-            <li class="nav-item px-2">
-              <!--for sign up-->
-              <router-link to="/register" class="nav-link">
-                <div class="flex items-center">
-                  <SvgIcon type="mdi" :path="mdiAccountPlus"/>
-                  <span class="ml-3">Sign Up</span>
-                </div>
-              </router-link>
-            </li>
-
-             <!--for login-->
-             <li class="nav-item px-2">
-              <router-link to="/login" class="nav-link">
-                <div class="flex items-center">
-                  <SvgIcon type="mdi" :path="mdiLogin"/>
-                  <span class="ml-3">Login</span>
-                </div>
-              </router-link>
-             </li>
-          </ul>
-          
-          <ul v-if="authStore.currentUserName" class="flex navbar-nav ml-auto">
-            <li class="nav-item px-2">
-              <router-link to="/profile" class="nav-link">
-                <div class="flex items-center">
-                  <SvgIcon type="mdi" :path="mdiAccount"/>
-                  <span class="ml-3">
-                    {{ authStore.currentUserName }}
-                  </span>
-                </div>
-              </router-link>
-            </li>
-
-            <li class="nav-item px-2">
-              <a class="nav-link hover:cursor-pointer" @click="logout">
-                <div class="flex items-center">
-                  <SvgIcon type="mdi" :path="mdiLogin"/> 
-                  <span class="ml-3">LogOut</span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        </div>
-  </header>
     <!--new element-->
     <div class="justify-center flex">
       <img

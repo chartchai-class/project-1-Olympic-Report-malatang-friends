@@ -4,8 +4,6 @@ import apiClient from "@/services/AxiosClient";
 import type { User } from "@/types";
 
 
-
-
 export const useAuthStore=defineStore('auth',{
     state:()=>({
         token:null as string | null,
@@ -13,7 +11,7 @@ export const useAuthStore=defineStore('auth',{
     }),
     getters:{
         currentUserName(): string{
-            return this.user?.name || ''
+            return this.user?.username || ''
         },
         isAdmin(): boolean{
             return this.user?.roles.includes('ROLE_ADMIN') || false
@@ -35,8 +33,11 @@ export const useAuthStore=defineStore('auth',{
                 this.user=response.data.user;
                 localStorage.setItem('access_token',this.token as string)
                 localStorage.setItem('user',JSON.stringify(this.user))
+                console.log(localStorage.getItem('access_token'))
+                console.log(localStorage.getItem('user'))
                 axios.defaults.headers.common['Authorization']= `Bearer ${this.token}`
                 return response
+        
             })
         },
         login(username: string,password: string){
@@ -46,11 +47,14 @@ export const useAuthStore=defineStore('auth',{
                 password: password
             })
             .then((response)=>{
+                console.log(response.data)
                 this.token=response.data.access_token
                 this.user=response.data.user
                 localStorage.setItem('access_token',this.token as string)
                 localStorage.setItem('user',JSON.stringify(this.user))
                 axios.defaults.headers.common['Authorization']= `Bearer ${this.token}`
+                console.log(localStorage.getItem('access_token'));
+                console.log(localStorage.getItem('user'));
                 return response
             })
         },

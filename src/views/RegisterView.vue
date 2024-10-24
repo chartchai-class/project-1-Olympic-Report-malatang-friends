@@ -20,7 +20,7 @@ const authStore=useAuthStore()
 const validationSchema= yup.object({
         email: yup.string().required('Email is required').email('Input must be an email.'),
         username: yup.string().required('Username is required'),
-        password: yup.string().required('Password is required').min(5,'The password must be at least 6 characters.')
+        password: yup.string().required('Password is required').min(5,'The password must be at least 5 characters.')
 })
 
 const {errors,handleSubmit}=useForm({

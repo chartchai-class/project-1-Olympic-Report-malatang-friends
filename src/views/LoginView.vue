@@ -1,14 +1,17 @@
 <script setup lang="ts">
+
+    import logo from '@/assets/OlympicLogoWhite.png'
+    import background from '@/assets/background.png'
+    
     import InputText from '@/components/InputText.vue';
     import * as yup from 'yup'
     import { storeToRefs } from 'pinia'
     import { useField,useForm } from 'vee-validate';
-    import logo from '@/assets/OlympicLogoWhite.png'
-    import background from '@/assets/background.png'
     import { useAuthStore } from '@/stores/auth';
     import { useRouter } from 'vue-router';
-
     import { useMessageStore } from '@/stores/message';
+
+        
     const messageStore=useMessageStore()
     const {message}=storeToRefs(messageStore)
 
@@ -35,7 +38,6 @@
         authStore.login(values.username,values.password)
         .then(()=>{
             router.push({name:'home-view'})
-            
         })
         .catch((err)=>{
             messageStore.updateMessage('could not login')
@@ -116,9 +118,3 @@
     </div>
     </div>
 </template>
-
-
-
-<style scoped>
-
-</style>

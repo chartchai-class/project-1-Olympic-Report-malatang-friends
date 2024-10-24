@@ -6,6 +6,7 @@ import nProgress from 'nprogress';
 import HomeView from '@/views/Homeview.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import LoginView from '@/views/LoginView.vue';
+import UsersView from '@/views/UsersView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,7 +25,11 @@ const router = createRouter({
       name:'login',
       component: LoginView
     },
-
+    {
+      path:'/register',
+      name:'register',
+      component:RegisterView
+    },
     {
       path: '/countrydetails/:id',
       name: 'CountryDetails',
@@ -33,12 +38,12 @@ const router = createRouter({
         id: route.params.id,
       }),
     },
+ 
     {
-      path:'/register',
-      name:'register',
-      component:RegisterView
+      path:'/users',
+      name:'users',
+      component: UsersView
     },
-
     {
       path: '/404/notFound',
       name: '404-notfound',

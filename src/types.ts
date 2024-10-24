@@ -72,8 +72,14 @@ export interface Page {
 
 export interface User{
   id: number
-  name: string
+  username: string
+  email: string
+  password: string
   roles: string[]
+}
+
+export interface UserState{
+  user: User | null
 }
 export interface MessageState {
   message: string
