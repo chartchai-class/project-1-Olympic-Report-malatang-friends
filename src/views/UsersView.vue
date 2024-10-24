@@ -3,33 +3,28 @@
   import { ref, onMounted, computed, watchEffect } from 'vue'
   import UsersService from '@/services/UsersService';
   import type { User } from '@/types';
-  import { useRouter } from 'vue-router';
+  import { useRouter,useRoute } from 'vue-router';
+
 
   const router=useRouter()
+  const route=useRoute()
   const users=ref<User[] | null>(null)
   const totalUsers=ref(0)
+
+const page = computed(() => Number(route.query.page) || 1);
+const perPage=computed(()=> Number(route.query.perPage) || 3);
 
   const hasNexPage = computed(() => {
   const totalPages = Math.ceil(totalUsers.value / perPage.value)
   return page.value < totalPages
 })
 
-  const props = defineProps({
-  page: {
-    type: Number,
-    default: 1
-  },
-  perPage:{
-    type:Number,
-    default:10
-  }
+onMounted(()=>{
+  fetchUsers();
 })
 
-
-const page = computed(() => props.page);
-const perPage=computed(()=> props.perPage);
-onMounted(()=>{
- fetchUsers()
+watchEffect(()=>{
+  fetchUsers();
 })
 
 function fetchUsers(){
@@ -37,13 +32,20 @@ function fetchUsers(){
   .then((response)=>{
     users.value=response.data;
     totalUsers.value=Number(response.headers['x-total-count'])
+    console.log(totalUsers.value)
   })
   .catch(()=>{
     router.push({name:'NetworkError'});
   })
 }
 
+function upgrade(){
+  console.log('upgraded')
+}
 
+function downgrade(){
+  console.log('degraded')
+}
 
 </script>
 
@@ -79,11 +81,16 @@ function fetchUsers(){
                     <td class="p-3">{{ user.email }}</td>
                     <td class="p-3">{{ user.roles[0]}}</td>
                     <td class="p-3">
-                        <button v-if="user.roles.includes('ROLE_USER')" class="text-blue-600 hover:text-blue-900">
-                            Upgrade to Admin
+                        <button
+                         v-if="user.roles.includes('ROLE_USER')"
+                         class="text-blue-600 hover:text-blue-900"
+                         :onclick="upgrade">
+                            Upgrade
                         </button>
-                        <button v-else class="text-red-600 hover:text-red-900">
-                            Downgrade to User
+                        <button v-else
+                        :onclick="downgrade"
+                         class="text-red-600 hover:text-red-900">
+                            Downgrade
                         </button>
                     </td>
                 </tr>
@@ -92,17 +99,19 @@ function fetchUsers(){
           </tbody>
         </table>
 
-        <div class="pagination">
+        <div class="flex pb-28 pt-8 pagination">
       <RouterLink
+       class="flex items-center justify-center px-4 h-10 text-base font-medium text-black bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white  hover:bg-secondaryBlue shadow-lg hover:shadow-indigo-500/4 hover:scale-105 transform transition duration-500 ease-in-out"
         id="page-prev"
         :to="{ name: 'users', query: { page: page - 1,perPage:perPage } }"
         rel="prev"
         v-if="page != 1"
-        >&#60; Prev Page</RouterLink
-      >
+        >&#60; Prev
+        </RouterLink>
 
       <RouterLink
         id="page-next"
+        class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-black bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white hover:text-white hover:bg-secondaryBlue shadow-lg hover:shadow-indigo-500/4 hover:scale-105 transform transition duration-500 ease-in-out"
         :to="{ name: 'users', query: { page: page + 1,perPage:perPage } }"
         rel="next"
         v-if="hasNexPage"
