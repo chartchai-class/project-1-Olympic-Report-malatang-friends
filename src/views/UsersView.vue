@@ -4,10 +4,17 @@
   import UsersService from '@/services/UsersService';
   import type { User } from '@/types';
   import { useRouter,useRoute } from 'vue-router';
-
+  import { useMessageStore } from '@/stores/message';
+  import { storeToRefs } from 'pinia';
+  import { useAuthStore } from '@/stores/auth';
 
   const router=useRouter()
   const route=useRoute()
+
+
+  const messageStore=useMessageStore()
+  const {message}=storeToRefs(messageStore)
+
   const users=ref<User[] | null>(null)
   const totalUsers=ref(0)
 
@@ -39,13 +46,44 @@ function fetchUsers(){
   })
 }
 
-function upgrade(){
-  console.log('upgraded')
+function updateRole(userId: number) {
+  const user = users.value?.find((u) => u.id === userId);
+  
+  if (user) {
+    // Determine the new role based on the current role
+    let newRole: string;
+    if (user.roles.includes('ROLE_ADMIN')) {
+      newRole = 'ROLE_USER'; // Change to ROLE_USER if currently ROLE_ADMIN
+    } else {
+      newRole = 'ROLE_ADMIN'; // Change to ROLE_ADMIN if currently ROLE_USER
+    }
+
+    UsersService.updateUserRole(userId, newRole)
+      .then(() => {
+        // Update user's role in the local state
+        user.roles = [newRole]; // Set the new role in the user's roles
+        messageStore.updateMessage('Success Update');
+        setTimeout(() => {
+          messageStore.resetMessage();
+        }, 3000);
+      })
+      .catch(() => {
+        messageStore.updateMessage('Failed Update');
+        setTimeout(() => {
+          messageStore.resetMessage();
+        }, 3000);
+      });
+  }
 }
 
-function downgrade(){
-  console.log('degraded')
+function upgrade(userId: number) {
+  updateRole(userId); // Call updateRole which will toggle the role
 }
+
+function downgrade(userId: number) {
+  updateRole(userId); // Call updateRole which will toggle the role
+}
+
 
 </script>
 
@@ -60,7 +98,6 @@ function downgrade(){
       <h1 class="font-poppins mt-4 font-semibold text-2xl text-white mb-8">
        Users Dashboard
       </h1>
-
       <div class="overflow-x-auto">
         <table
           class="table-auto min-w-full bg-white rounded border-separate border-spacing-y-3"
@@ -84,11 +121,11 @@ function downgrade(){
                         <button
                          v-if="user.roles.includes('ROLE_USER')"
                          class="text-blue-600 hover:text-blue-900"
-                         :onclick="upgrade">
+                         @click="upgrade(user.id)">
                             Upgrade
                         </button>
                         <button v-else
-                        :onclick="downgrade"
+                        @click="downgrade(user.id)"
                          class="text-red-600 hover:text-red-900">
                             Downgrade
                         </button>

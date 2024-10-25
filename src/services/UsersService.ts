@@ -5,10 +5,8 @@ export default{
     getUsers(perPage: Number, page: Number){
         return apiClient.get('/users?_limit='+perPage+'&_page='+page)
     },
-    updateUserRole(userId: Number,newRole:string){
-        return apiClient.put(`/users/${userId}/role`, { role: newRole })
+    updateUserRole(userId: Number,newRole: string){
+        return apiClient.put(`/users/${userId}/role`, { newRole });
     },
-    // getUsers(){
-    //     return apiClient.get('/users')
-    // }
+    
 }
