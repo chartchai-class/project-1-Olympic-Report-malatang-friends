@@ -84,3 +84,10 @@ export interface UserState{
 export interface MessageState {
   message: string
 }
+export interface Country {
+  id: number; 
+  flag: string; 
+  countryName: string;
+  description: string; 
+  sports: Sport[]; 
+}
