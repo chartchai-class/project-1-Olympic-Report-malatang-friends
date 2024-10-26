@@ -7,6 +7,7 @@ import HomeView from '@/views/Homeview.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import LoginView from '@/views/LoginView.vue';
 import UsersView from '@/views/UsersView.vue';
+import CountryAddingForm from '@/views/CountryAddingForm.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +44,11 @@ const router = createRouter({
       path:'/users',
       name:'users',
       component: UsersView
+    },
+    {
+      path:'/addcountry',
+      name:'addCountry',
+      component: CountryAddingForm
     },
     {
       path: '/404/notFound',

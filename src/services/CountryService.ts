@@ -1,3 +1,4 @@
+import type { CountryInfo } from '@/types';
 import axios, { type AxiosResponse } from 'axios';
 
 const CountryApiClient = axios.create({
@@ -28,5 +29,7 @@ export default {
     const page =
       response.data.query.pages[Object.keys(response.data.query.pages)[0]];
     return page;
-  },
+  },saveCountry(country: CountryInfo){
+    return CountryApiClient.post('/country',country)
+  }
 };
