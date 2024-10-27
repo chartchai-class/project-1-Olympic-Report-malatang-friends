@@ -32,7 +32,7 @@
        commentInput.value = '';
     }
   };
-t
+
 </script>
 <template>
   <div class="w-full bg-primaryBlue flex flex-col justify-center items-center">
