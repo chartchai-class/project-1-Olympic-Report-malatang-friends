@@ -6,11 +6,8 @@
 
  const props= defineProps<{
   username: string;
-
   userId: number;
   countryId:number}>()
-
-  userId: number;}>()
 
 
   const commentStore = useCommentStore();

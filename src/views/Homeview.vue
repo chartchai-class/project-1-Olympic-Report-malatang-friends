@@ -62,7 +62,6 @@ function fetchCountries(){
 const searchCountries = (countryName: string) => {
     OlympicService.getCountries() // Assuming this service gets all countries
         .then((response) => {
-<<<<<<< HEAD
             const allData = response.data;
             ranks.value = allData.filter((country: CountrySpring) => 
                 country.countryName.toLowerCase().includes(countryName.toLowerCase())
