@@ -24,6 +24,15 @@ const router = createRouter({
       }),
     },
     {
+      path: '/',
+      name: 'home-view',
+      component: HomeView,
+      props: (route) => ({
+        page: parseInt(route.query.page?.toString() || '1'),
+        perPage: parseInt(route.query.perPage?.toString() || '10'),
+      }),
+    },
+    {
       path: '/login',
       name: 'login',
       component: LoginView,
@@ -47,10 +56,7 @@ const router = createRouter({
       name: 'CountryDetails',
       component: Countrydetails,
       props: (route) => ({
-
-      
-        id:  parseInt(route.params.id.toString()) ,
-
+        id: parseInt(route.params.id.toString()),
       }),
     },
     {
