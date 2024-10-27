@@ -24,14 +24,14 @@ const router = createRouter({
       }),
     },
     {
-      path:'/login',
-      name:'login',
-      component: LoginView
+      path: '/login',
+      name: 'login',
+      component: LoginView,
     },
     {
-      path:'/register',
-      name:'register',
-      component:RegisterView
+      path: '/register',
+      name: 'register',
+      component: RegisterView,
     },
     {
       path: '/countrydetails/:id/:name',
@@ -39,18 +39,26 @@ const router = createRouter({
       component: Countrydetails,
       props: (route) => ({
         name: route.params.name,
-        id:  parseInt(route.params.id.toString()) ,
+        id: parseInt(route.params.id.toString()),
       }),
     },
     {
-      path:'/users',
-      name:'users',
-      component: UsersView
+      path: '/countrydetails/:id',
+      name: 'CountryDetails',
+      component: Countrydetails,
+      props: (route) => ({
+        id: parseInt(route.params.id.toString()),
+      }),
     },
     {
-      path:'/addcountry',
-      name:'addCountry',
-      component: CountryAddingForm
+      path: '/users',
+      name: 'users',
+      component: UsersView,
+    },
+    {
+      path: '/addcountry',
+      name: 'addCountry',
+      component: CountryAddingForm,
     },
     {
       path: '/404/notFound',

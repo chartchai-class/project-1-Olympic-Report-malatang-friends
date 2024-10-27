@@ -14,15 +14,7 @@ const countryInfo = ref<CountryInfo>({
     flag: ''
 })
 
-onMounted(()=> {
-  CountryService.getCountry()
-    .then((response) => {
-        countryInfo.value = response.data
-    })
-    .catch(()=> {
-        router.push({name:'NetworkError'})
-    })
-})
+
 
 const router = useRouter()
 const store = useMessageStore()
@@ -30,6 +22,8 @@ const store = useMessageStore()
 function saveCountry() {
     CountryService.saveCountry(countryInfo.value)
     .then((response) => {
+      console.log("Response after save country",response.data.id);
+      
         router.push({
             name: 'CountryDetails',
             params: { id: response.data.id }
