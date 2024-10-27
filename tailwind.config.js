@@ -1,11 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       boxShadow: {
         sp: '0 3px 12px 0 rgba(0, 0, 0, 0.2)',
-      },
+      }
+    },
+    colors:{
+      primary: '#007bff',
     },
 
     backgroundImage: {
@@ -40,5 +44,6 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+  ],
 };
