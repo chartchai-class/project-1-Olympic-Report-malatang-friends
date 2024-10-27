@@ -2,7 +2,7 @@ import type { CountryInfo } from '@/types';
 import axios, { type AxiosResponse } from 'axios';
 
 const CountryApiClient = axios.create({
-  baseURL: 'https://en.wikipedia.org/w/api.php',
+  baseURL: import.meta.env.VITE_BACKEND_URL,
   withCredentials: false,
   headers: {
     Accept: 'application/json',

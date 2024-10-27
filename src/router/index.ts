@@ -39,7 +39,6 @@ const router = createRouter({
         id: route.params.id,
       }),
     },
- 
     {
       path:'/users',
       name:'users',

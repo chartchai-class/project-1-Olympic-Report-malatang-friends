@@ -89,5 +89,5 @@ export interface CountryInfo{
   id: number
   countryName: string
   description: string
-  flag: string[]
+  flag: string
 }

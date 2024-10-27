@@ -11,7 +11,7 @@ const countryInfo = ref<CountryInfo>({
     id: 0,
     countryName: '',
     description: '',
-    flag: []
+    flag: ''
 })
 
 onMounted(()=> {

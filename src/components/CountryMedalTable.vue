@@ -15,7 +15,6 @@ const editGold = ref<Record<string, boolean>>({});
 const editSilver = ref<Record<string, boolean>>({});
 const editBronze = ref<Record<string, boolean>>({});
 
-// 保存并退出编辑模式的方法
 function saveField(editField: Record<string, boolean>, key: string) {
   editField[key] = false;
 }
