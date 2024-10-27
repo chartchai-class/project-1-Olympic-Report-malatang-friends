@@ -18,9 +18,9 @@ export interface Normalized {
 export interface Page {
   pageid: number;
   ns: number;
-  title: string;
-  thumbnail: Thumbnail;
-  extract: string;
+  countryName: string;
+  description: string;
+  flag: string;
   sports?: Sport[];
 }
 export interface Thumbnail {
@@ -41,9 +41,8 @@ export interface CountrySpring {
   totalRank:number;
 }
 export interface Medal {
-  id: string;
+  id: number;
   name: string;
-  continent: string;
   flag_url: string;
   gold_medals: number;
   silver_medals: number;
@@ -66,7 +65,7 @@ export interface CommentState {
 }
 
 export interface MedalRank {
-  id: string;
+  id: number;
   name: string;
   flag_url: string;
   gold_medals: number;
@@ -95,10 +94,20 @@ export interface UserState{
 export interface MessageState {
   message: string
 }
+
 export interface Country {
   id: number; 
   flag: string; 
   countryName: string;
   description: string; 
   sports: Sport[]; 
+
+}
+export interface CountryInfo{
+  id: number
+  countryName: string
+  description: string
+  flag: string
+
+
 }

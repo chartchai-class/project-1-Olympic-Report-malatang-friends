@@ -70,7 +70,9 @@ else{
 
               <li v-if="authStore.isAdmin" class="nav-item px-2">
                 <router-link 
-                  :to="{name:'users'}"
+
+                  :to="{name:'addCountry'}"
+
                    class="nav-link">
                   <div class="flex items-center">
                     <SvgIcon type="mdi" :path="mdiMapPlus"/>

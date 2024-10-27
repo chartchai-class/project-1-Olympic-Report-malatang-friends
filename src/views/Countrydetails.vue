@@ -7,12 +7,14 @@
   import { ref, onMounted, watchEffect,computed } from 'vue';
   import countryService from '@/services/CountryService';
   import OlympicAPIServices from '@/services/OlympicAPIServices';
+
   import type { Page, Medal } from '@/types';
   import { useRoute } from 'vue-router';
   import { useAuthStore } from '@/stores/auth'
 
   const authStore=useAuthStore()
   const route = useRoute();
+
 
   const country = ref<Page | null>(null);
   const medals = ref<Medal | null>(null);
@@ -24,25 +26,40 @@
 
   onMounted(() => {
     watchEffect(() => {
-     const id=countryId.value
-     const countryName = route.params.name as string;
+
+      const countryName = route.params.name as string;
+      const countryId = parseInt(route.params.id.toString());
+
       //fetch country information
       countryService
-        .getCountryDetails(countryName)
+        .getCountryDetailsByCountryId(countryId)
+
         .then((response) => {
-          country.value = response;
+          console.log('Response from Country detail by countryId', response.data);
+          
+          country.value = response.data;
+          console.log('Country: ', country.value);
+          
         })
         .catch((error) => {
           console.error('Error:', error);
         });
 
       //fetch medal details for each country
-      OlympicAPIServices.getMedalWithSportId(countryId.value)
+
+      OlympicAPIServices.getMedalWithSportId(countryId)
         .then((response) => {
-          console.log('Reposnse from Country detail ', response.data);
+         // console.log('Reposnse from Country detail ', response.data);
           console.log('Sports', response.data.sports);
 
           if (response.data.sports) {
+            // const countryData = response.data.find(
+            //   (item: Medal) => item.id === countryId
+            // );
+            // if (countryData) {
+            //   medals.value = countryData;
+            // }
+
             medals.value = response.data;
           } else {
             console.error('Unexpected response format:', response.data);
@@ -68,7 +85,9 @@
     </div>
   </div>
   <Comments v-if="authStore.currentUserId"
+
    :username="authStore.currentUserName"
     :userId="authStore.currentUserId"
     :countryId="countryId"/>
+
 </template>
