@@ -43,12 +43,12 @@ const router = createRouter({
       }),
     },
     {
-      path: '/countrydetails/:id/:name',
+      path: '/countrydetails/:id',
       name: 'CountryDetails',
       component: Countrydetails,
       props: (route) => ({
 
-        name: route.params.name,
+      
         id:  parseInt(route.params.id.toString()) ,
 
       }),
