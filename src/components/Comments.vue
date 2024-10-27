@@ -1,18 +1,38 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ref,onMounted } from 'vue';
   import { useCommentStore } from '@/stores/comment';
   import { storeToRefs } from 'pinia';
+ 
+
+ const props= defineProps<{
+  username: string;
+  userId: number;
+  countryId:number}>()
+
 
   const commentStore = useCommentStore();
   const { comments } = storeToRefs(commentStore);
   const commentInput = ref('');
 
+
+  console.log('Country ID:', props.countryId);
+  //load comments 
+  onMounted(()=>{
+    commentStore.loadComments(props.userId,props.countryId);
+
+  })
+
   const submitComment = () => {
     if (commentInput.value.trim()) {
-      commentStore.submitComment(commentInput.value);
-      commentInput.value = '';
+      commentStore.submitComment(
+        commentInput.value,
+
+        props.userId,
+        props.countryId);
+       commentInput.value = '';
     }
   };
+
 </script>
 <template>
   <div class="w-full bg-primaryBlue flex flex-col justify-center items-center">
@@ -70,11 +90,11 @@
           <img
             class="mr-2 w-6 h-6 rounded-full"
             src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-            alt="User 1"
-          />User {{ index + 1 }}
+        
+          />{{ username }}
         </p>
         <p class="text-white pl-4">
-          {{ comment }}
+          {{  comment.comment }}
         </p>
       </div>
     </div>

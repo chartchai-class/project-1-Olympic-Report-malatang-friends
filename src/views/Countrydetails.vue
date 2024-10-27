@@ -4,48 +4,63 @@
 
   import CountryMedalTable from '@/components/CountryMedalTable.vue';
   import Comments from '@/components/Comments.vue';
-  import { ref, onMounted, watchEffect } from 'vue';
+  import { ref, onMounted, watchEffect,computed } from 'vue';
   import countryService from '@/services/CountryService';
   import OlympicAPIServices from '@/services/OlympicAPIServices';
 
   import type { Page, Medal } from '@/types';
-
   import { useRoute } from 'vue-router';
+  import { useAuthStore } from '@/stores/auth'
+
+  const authStore=useAuthStore()
+  const route = useRoute();
+
 
   const country = ref<Page | null>(null);
   const medals = ref<Medal | null>(null);
 
-  const route = useRoute();
+  const countryId = computed(()=>{
+  const id=parseInt(route.params.id.toString());
+  console.log(id);
+  return id});
 
   onMounted(() => {
     watchEffect(() => {
-      const countryId = route.params.id as string;
+
+      const countryName = route.params.name as string;
+      const countryId = parseInt(route.params.id.toString());
 
       //fetch country information
       countryService
-        .getCountryDetails(countryId)
+        .getCountryDetailsByCountryId(countryId)
+
         .then((response) => {
-          country.value = response;
+          console.log('Response from Country detail by countryId', response.data);
+          
+          country.value = response.data;
+          console.log('Country: ', country.value);
+          
         })
         .catch((error) => {
           console.error('Error:', error);
         });
 
       //fetch medal details for each country
-      OlympicAPIServices.getMedalWithSport(countryId)
+
+      OlympicAPIServices.getMedalWithSportId(countryId)
         .then((response) => {
-          console.log(response.data.data);
-          if (
-            response.data &&
-            response.data.data &&
-            Array.isArray(response.data.data)
-          ) {
-            const countryData = response.data.data.find(
-              (item: Medal) => item.id === countryId
-            );
-            if (countryData) {
-              medals.value = countryData;
-            }
+         // console.log('Reposnse from Country detail ', response.data);
+          console.log('Sports', response.data.sports);
+
+          if (response.data.sports) {
+            // const countryData = response.data.find(
+            //   (item: Medal) => item.id === countryId
+            // );
+            // if (countryData) {
+            //   medals.value = countryData;
+            // }
+
+            medals.value = response.data;
           } else {
             console.error('Unexpected response format:', response.data);
           }
@@ -69,5 +84,10 @@
       </div>
     </div>
   </div>
-  <Comments />
+  <Comments v-if="authStore.currentUserId"
+
+   :username="authStore.currentUserName"
+    :userId="authStore.currentUserId"
+    :countryId="countryId"/>
+
 </template>

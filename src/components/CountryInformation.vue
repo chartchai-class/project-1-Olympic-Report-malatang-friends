@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { defineProps, ref } from 'vue';
   import flag from '@/assets/flag.png';
-  import { type Page } from '@/types';
+  import { type Country, type Page } from '@/types';
 
   const props = defineProps<{
     country: Page | null;
@@ -12,8 +12,8 @@
   const displayextract = () => {
     if (props.country) {
       return showExtract.value
-        ? props.country.extract
-        : props.country.extract.slice(0, 500) + '...........';
+        ? props.country.description
+        : props.country.description.slice(0, 500) + '...........';
     }
 
     return ''; //no country data yet
@@ -31,8 +31,8 @@
     </h1>
     <div class="cursor-pointer drop-shadow-2xl">
       <img
-        :src="country?.thumbnail.source"
-        :alt="country?.title"
+        :src="country?.flag"
+        :alt="country?.countryName"
         class="contrast-125 rounded-lg hover:animate-wiggle"
         width="200"
         height="300"
@@ -43,7 +43,7 @@
       v-if="country"
       class="font-semibold text-xl text-sky-400 my-2 mt-6 mb-3 hover:text-blue-600"
     >
-      {{ country.title }}
+      {{ country.countryName }}
     </h1>
     <p
       v-if="country"
