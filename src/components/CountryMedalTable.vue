@@ -1,24 +1,35 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps, ref } from 'vue';
 import { type Sport } from '@/types';
+import sportService from '@/services/SportService';
 import gold from '@/assets/gold1.png';
 import silver from '@/assets/silver1.png';
 import bronze from '@/assets/bronze1.png';
-import { ref } from 'vue';
 
-const props = defineProps<{
-  sports: Sport[];
-}>();
+// Props from parent component
+const props = defineProps<{ sports: Sport[] }>();
 
+// Track edit states for each field
 const editSportName = ref<Record<string, boolean>>({});
 const editGold = ref<Record<string, boolean>>({});
 const editSilver = ref<Record<string, boolean>>({});
 const editBronze = ref<Record<string, boolean>>({});
 
-function saveField(editField: Record<string, boolean>, key: string) {
-  editField[key] = false;
+// Function to save field edits and submit to backend
+async function saveField(editField: Record<string, boolean>, key: string, sport: Sport) {
+  editField[key] = false; // Close the edit mode
+
+  try {
+    const response = await sportService.updateSport(sport.id, sport);
+    console.log('Sport updated successfully:', response.data);
+    alert('Update successful!');
+  } catch (error) {
+    console.error('Error updating sport:', error);
+    alert('Failed to update sport.');
+  }
 }
 </script>
+
 
 <template>
   <div class="px-8">
@@ -54,7 +65,7 @@ function saveField(editField: Record<string, boolean>, key: string) {
               <template v-if="editSportName[sport.name]">
                 <input
                   v-model="sport.name"
-                  @keyup.enter.prevent="saveField(editSportName, sport.name)"
+                  @keyup.enter.prevent="saveField(editSportName, sport.name, sport)"
                   class="w-32 h-16"
                   type="text"
                 />
@@ -68,7 +79,7 @@ function saveField(editField: Record<string, boolean>, key: string) {
                 <input
                   type="number"
                   v-model="sport.gold"
-                  @keyup.enter.prevent="saveField(editGold, sport.name)"
+                  @keyup.enter.prevent="saveField(editGold, sport.name, sport)"
                   class="w-16"
                 />
               </template>
@@ -81,7 +92,7 @@ function saveField(editField: Record<string, boolean>, key: string) {
                 <input
                   type="number"
                   v-model="sport.silver"
-                  @keyup.enter.prevent="saveField(editSilver, sport.name)"
+                  @keyup.enter.prevent="saveField(editSilver, sport.name, sport)"
                   class="w-16"
                 />
               </template>
