@@ -94,3 +94,10 @@ export interface UserState{
 export interface MessageState {
   message: string
 }
+
+export interface CountryInfo{
+  id: number
+  countryName: string
+  description: string
+  flag: string
+}

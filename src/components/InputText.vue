@@ -1,6 +1,6 @@
 <script setup lang="ts">
-   import UniqueID from '@/features/UniqueID';
-   import ErrorMessage from './ErrorMessage.vue';
+    import UniqueID from '@/features/UniqueID';
+    import ErrorMessage from './ErrorMessage.vue';
     import {computed} from 'vue'
     const modelValue=defineModel()
     interface Props{
@@ -47,11 +47,11 @@
             :id="`${uuid}-error`">
                 {{ error }}
             <svg xmlns="http://www.w3.org/2000/svg"
-             class="w-6 h-6"
-             fill="none"
-             viewBox="0 0 24 24"
-             stroke="currentColor">
-           
+                class="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+
             <path
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -62,7 +62,6 @@
         </div>
     </div>
 </template>
-
 
 
 <style scoped>
