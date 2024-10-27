@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import medalTable from '@/components/homepageMedalTable.vue';
-  import { type MedalRank } from '@/types';
+  import type { MedalRank, CountrySpring } from '@/types';
   import { ref, onMounted, computed, watchEffect, inject, watch } from 'vue';
   import OlympicService from '@/services/OlympicAPIServices';
   import background from '@/assets/background.png';
@@ -21,7 +21,7 @@
   };
 
   const router = useRouter();
-  const ranks = ref<MedalRank[] | null>(null);
+  const ranks = ref<CountrySpring[] | null>(null);
   const totalRanks = ref(0);
 
   const props = defineProps({
