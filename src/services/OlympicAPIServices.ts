@@ -13,5 +13,14 @@ export default {
     return apiClient.get('/countrydetails/'+id, {
       params: { id },
     });
+  },
+  getCountries(name: String='', perPage:Number=10, page: Number=1 ){
+    return apiClient.get('/home',{
+      params:{
+        name,          // Name for searching
+        _limit: perPage, // Optional limit
+        _page: page,    
+      }
+    })
   }
 };
