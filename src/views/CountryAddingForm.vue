@@ -15,7 +15,7 @@ const countryInfo = ref<CountryInfo>({
 })
 
 onMounted(()=> {
-  CountryService.getCountryDetails(countryInfo.value.countryName)
+  CountryService.getCountry()
     .then((response) => {
         countryInfo.value = response.data
     })
@@ -31,10 +31,10 @@ function saveCountry() {
     CountryService.saveCountry(countryInfo.value)
     .then((response) => {
         router.push({
-            name: 'CountryDetails',
+            name: 'home-view',
             params: { id: response.data.id }
         })
-        store.updateMessage('You are successfully add a new dountry for ' + response.data.countryName)
+        store.updateMessage('You are successfully add a new country for ' + response.data.countryName)
         setTimeout(() => {
             store.resetMessage()
         }, 3000)

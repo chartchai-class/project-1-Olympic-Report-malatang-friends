@@ -29,10 +29,20 @@ export interface Thumbnail {
   height: number;
 }
 
+export interface CountrySpring {
+  id: number;
+  countryName: string;
+  flag: string;
+  gold_medals: number;
+  silver_medals: number;
+  bronze_medals: number;
+  total_medals: number;
+  ranking: number;
+  totalRank:number;
+}
 export interface Medal {
-  id: string;
+  id: number;
   name: string;
-  continent: string;
   flag_url: string;
   gold_medals: number;
   silver_medals: number;
@@ -55,7 +65,7 @@ export interface CommentState {
 }
 
 export interface MedalRank {
-  id: string;
+  id: number;
   name: string;
   flag_url: string;
   gold_medals: number;

@@ -8,17 +8,19 @@ import RegisterView from '@/views/RegisterView.vue';
 import LoginView from '@/views/LoginView.vue';
 import UsersView from '@/views/UsersView.vue';
 import CountryAddingForm from '@/views/CountryAddingForm.vue';
+import { idText } from 'typescript';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home-view',
       component: HomeView,
       props: (route) => ({
         page: parseInt(route.query.page?.toString() || '1'),
+        perPage: parseInt(route.query.perPage?.toString() || '10'),
       }),
     },
     {
@@ -32,11 +34,12 @@ const router = createRouter({
       component:RegisterView
     },
     {
-      path: '/countrydetails/:id',
+      path: '/countrydetails/:id/:name',
       name: 'CountryDetails',
       component: Countrydetails,
       props: (route) => ({
-        id: route.params.id,
+        name: route.params.name,
+        id:  parseInt(route.params.id.toString()) ,
       }),
     },
     {
