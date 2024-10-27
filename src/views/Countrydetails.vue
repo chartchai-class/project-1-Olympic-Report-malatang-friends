@@ -7,7 +7,7 @@
   import { ref, onMounted, watchEffect } from 'vue';
   import countryService from '@/services/CountryService';
   import OlympicAPIServices from '@/services/OlympicAPIServices';
-  import type { Page, Medal } from '@/types';
+  import type { Medal, Page } from '@/types';
   import { useRoute } from 'vue-router';
   import { useAuthStore } from '@/stores/auth'
   const authStore=useAuthStore()
@@ -25,9 +25,13 @@
 
       //fetch country information
       countryService
-        .getCountryDetails(countryName)
+        .getCountryDetailsByCountryId(countryId)
         .then((response) => {
-          country.value = response;
+          console.log('Response from Country detail by countryId', response.data);
+          
+          country.value = response.data;
+          console.log('Country: ', country.value);
+          
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -36,7 +40,7 @@
       //fetch medal details for each country
       OlympicAPIServices.getMedalWithSportId(countryId)
         .then((response) => {
-          console.log('Reposnse from Country detail ', response.data);
+         // console.log('Reposnse from Country detail ', response.data);
           console.log('Sports', response.data.sports);
 
           if (response.data.sports) {

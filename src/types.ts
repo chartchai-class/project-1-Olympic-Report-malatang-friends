@@ -18,9 +18,9 @@ export interface Normalized {
 export interface Page {
   pageid: number;
   ns: number;
-  title: string;
-  thumbnail: Thumbnail;
-  extract: string;
+  countryName: string;
+  description: string;
+  flag: string;
   sports?: Sport[];
 }
 export interface Thumbnail {
@@ -102,7 +102,7 @@ export interface Country {
   description: string; 
   sports: Sport[]; 
 
-
+}
 export interface CountryInfo{
   id: number
   countryName: string
