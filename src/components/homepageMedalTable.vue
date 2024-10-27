@@ -9,14 +9,14 @@
   }>();
 
  
-  function navigateToCountryDetails(id: string) {
-    router.push({ name: 'CountryDetails', params: { id } });
+  function navigateToCountryDetails(id: number, name: string) {
+    router.push({ name: 'CountryDetails', params: { id , name } });
   } 
 </script>
 
 <template>
   <tr
-    @click="navigateToCountryDetails(ranking.id.toString())"
+    @click="navigateToCountryDetails(ranking.id, ranking.countryName)"
     class="odd:bg-primaryGreen even:bg-primaryGrey mt-6 text-white px-8 rounded-sm cursor-pointer hover:text-black hover:bg-secondaryBlue shadow-lg hover:shadow-indigo-500/4 hover:scale-105 transform transition duration-500 ease-in-out"
   >
 

@@ -6,28 +6,28 @@
 
  const props= defineProps<{
   username: string;
-  userId: number;}>()
+  userId: number;
+  countryId:number}>()
 
   const commentStore = useCommentStore();
   const { comments } = storeToRefs(commentStore);
   const commentInput = ref('');
 
+  console.log('Country ID:', props.countryId);
   //load comments 
   onMounted(()=>{
-    commentStore.loadComments(props.userId);
+    commentStore.loadComments(props.userId,props.countryId);
   })
 
   const submitComment = () => {
     if (commentInput.value.trim()) {
       commentStore.submitComment(
         commentInput.value,
-        props.userId);
-      commentInput.value = '';
+        props.userId,
+        props.countryId);
+       commentInput.value = '';
     }
   };
-
- 
-
 
 </script>
 <template>

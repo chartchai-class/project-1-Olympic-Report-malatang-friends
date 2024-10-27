@@ -32,11 +32,12 @@ const router = createRouter({
       component:RegisterView
     },
     {
-      path: '/countrydetails/:id',
+      path: '/countrydetails/:id/:name',
       name: 'CountryDetails',
       component: Countrydetails,
       props: (route) => ({
-        id: route.params.id,
+        name: route.params.name,
+        id:  parseInt(route.params.id.toString()) ,
       }),
     },
  
