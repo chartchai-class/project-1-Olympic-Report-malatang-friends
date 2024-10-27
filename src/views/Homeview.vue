@@ -60,19 +60,19 @@
           //console.log("Response",response);
           
           const allData = response.data;
-          console.log("All Data",allData);
+          //console.log("All Data",allData);
           
           const startIndex = (page.value - 1) * defaultperPage.value;
-          console.log("Start Index",startIndex);
+          //console.log("Start Index",startIndex);
           
           const endIndex = startIndex + defaultperPage.value;
-          console.log("End Index",endIndex);
+         // console.log("End Index",endIndex);
           
           ranks.value = allData.slice(startIndex, endIndex);
-          console.log("Ranks",ranks.value);
+         // console.log("Ranks",ranks.value);
           
           totalRanks.value = allData.length;
-          console.log("Total Ranks",totalRanks.value);
+         // console.log("Total Ranks",totalRanks.value);
           
         })
         .catch(() => {

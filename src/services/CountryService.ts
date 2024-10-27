@@ -10,7 +10,7 @@ const CountryApiClient = axios.create({
 });
 
 export default {
-  async getCountryDetails(country: string) {
+  async getCountryDetails(country: string): Promise<any> {
     const response: AxiosResponse = await CountryApiClient.get('', {
       params: {
         action: 'query',

@@ -19,11 +19,12 @@
 
   onMounted(() => {
     watchEffect(() => {
-      const countryId = route.params.id as string;
+      const countryName = route.params.name as string;
+      const countryId = parseInt(route.params.id.toString());
 
       //fetch country information
       countryService
-        .getCountryDetails(countryId)
+        .getCountryDetails(countryName)
         .then((response) => {
           country.value = response;
         })
@@ -32,20 +33,19 @@
         });
 
       //fetch medal details for each country
-      OlympicAPIServices.getMedalWithSport(countryId)
+      OlympicAPIServices.getMedalWithSportId(countryId)
         .then((response) => {
-          console.log(response.data.data);
-          if (
-            response.data &&
-            response.data.data &&
-            Array.isArray(response.data.data)
-          ) {
-            const countryData = response.data.data.find(
-              (item: Medal) => item.id === countryId
-            );
-            if (countryData) {
-              medals.value = countryData;
-            }
+          console.log('Reposnse from Country detail ', response.data);
+          console.log('Sports', response.data.sports);
+
+          if (response.data.sports) {
+            // const countryData = response.data.find(
+            //   (item: Medal) => item.id === countryId
+            // );
+            // if (countryData) {
+            //   medals.value = countryData;
+            // }
+            medals.value = response.data;
           } else {
             console.error('Unexpected response format:', response.data);
           }
