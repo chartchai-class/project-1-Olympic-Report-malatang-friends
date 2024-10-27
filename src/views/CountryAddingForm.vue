@@ -31,7 +31,7 @@ function saveCountry() {
     CountryService.saveCountry(countryInfo.value)
     .then((response) => {
         router.push({
-            name: 'home-view',
+            name: 'CountryDetails',
             params: { id: response.data.id }
         })
         store.updateMessage('You are successfully add a new country for ' + response.data.countryName)
