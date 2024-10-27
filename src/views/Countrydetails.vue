@@ -7,10 +7,11 @@
   import { ref, onMounted, watchEffect } from 'vue';
   import countryService from '@/services/CountryService';
   import OlympicAPIServices from '@/services/OlympicAPIServices';
-
   import type { Page, Medal } from '@/types';
-
   import { useRoute } from 'vue-router';
+  import { useAuthStore } from '@/stores/auth'
+  const authStore=useAuthStore()
+
 
   const country = ref<Page | null>(null);
   const medals = ref<Medal | null>(null);
@@ -69,5 +70,6 @@
       </div>
     </div>
   </div>
-  <Comments />
+  <Comments v-if="authStore.currentUserId"
+   :username="authStore.currentUserName" :userId="authStore.currentUserId"/>
 </template>

@@ -18,6 +18,9 @@ export const useAuthStore=defineStore('auth',{
         },
         authorizationHeader(): string{
             return `Bearer ${this.token}`
+        },
+        currentUserId():number{
+            return this.user?.id || 0
         }
     },
     actions:{
