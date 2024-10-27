@@ -13,11 +13,12 @@ const router = createRouter({
 
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home-view',
       component: HomeView,
       props: (route) => ({
         page: parseInt(route.query.page?.toString() || '1'),
+        perPage: parseInt(route.query.perPage?.toString() || '10'),
       }),
     },
     {
