@@ -1,89 +1,115 @@
 <script setup lang="ts">
-  import medalTable from '@/components/homepageMedalTable.vue';
-  import type { MedalRank, CountrySpring } from '@/types';
-  import { ref, onMounted, computed, watchEffect, inject, watch } from 'vue';
-  import OlympicService from '@/services/OlympicAPIServices';
-  import background from '@/assets/background.png';
-  import logo from '@/assets/OlympicLogoWhite.png';
-  import gold from '@/assets/gold1.png';
-  import silver from '@/assets/silver1.png';
-  import bronze from '@/assets/bronze1.png';
-  import searchLogo from '@/assets/searchlogo.png';
-  import {RouterLink, useRouter } from 'vue-router';
-  
-  const inputValue = ref<number | null>(null);
-  const defaultperPage = ref<number>(10);
+import medalTable from '@/components/homepageMedalTable.vue';
+import type { CountrySpring } from '@/types';
+import { ref, onMounted, computed, watchEffect, inject, watch } from 'vue';
+import OlympicService from '@/services/OlympicAPIServices';
+import background from '@/assets/background.png';
+import logo from '@/assets/OlympicLogoWhite.png';
+import gold from '@/assets/gold1.png';
+import silver from '@/assets/silver1.png';
+import bronze from '@/assets/bronze1.png';
+import searchLogo from '@/assets/searchlogo.png';
+import { RouterLink, useRouter } from 'vue-router';
 
-  const handleSearch = (event: Event) => {
+const inputValue = ref<string>(''); // Change to string
+const defaultPerPage = ref<number>(10);
+
+const handleSearch = (event: Event) => {
     event.preventDefault();
-    defaultperPage.value = inputValue.value || 10;
-    console.log(defaultperPage.value);
-  };
+    const input = inputValue.value;
 
-  const router = useRouter();
-  const ranks = ref<CountrySpring[] | null>(null);
-  const totalRanks = ref(0);
+    // Check if input is a number
+    const parsedNumber = parseInt(input, 10);
+    if (!isNaN(parsedNumber)) {
+        defaultPerPage.value = parsedNumber; 
+        fetchCountries()// Set the number of countries
+    } else {
+        // Set country search name or handle accordingly
+        searchCountries(input); // Call the function to search countries by name
+    }
+    console.log(defaultPerPage.value);
+};
 
-  const props = defineProps({
+const router = useRouter();
+const ranks = ref<CountrySpring[]>([]);
+const totalRanks = ref(0);
+
+const props = defineProps({
     page: {
-      type: Number,
-      required: true,
+        type: Number,
+        required: true,
     },
     perPage: {
-      type: Number,
-      default: 10,
-      required: true,
+        type: Number,
+        default: 10,
+        required: true,
     },
-  });
+});
 
-  watch(
-    defaultperPage,
-    (newValue) => {
-      if (newValue != undefined && newValue != null) {
-        defaultperPage.value = newValue;
-      }
-    },
-    { immediate: true }
-  );
+function fetchCountries(){
+  OlympicService.getCountries('',defaultPerPage.value,1)
+  .then((response)=>{
+    console.log(response.data);
+      ranks.value = response.data; // Adjust if the data structure requires
+      totalRanks.value = response.data.length;
+  })
+  .catch((error)=>{
+    console.error('Error fetching countries: ',error)
+  })
+}
 
-  const page = computed(() => props.page);
-
-  const hasNextPage = computed(() => {
-    const totalPages = Math.ceil(totalRanks.value / defaultperPage.value);
-    return page.value < totalPages;
-  });
-
-  onMounted(() => {
-    watchEffect(() => {
-      OlympicService.getRanks(defaultperPage.value, page.value)
+// Function to search countries by name
+const searchCountries = (countryName: string) => {
+    OlympicService.getCountries() // Assuming this service gets all countries
         .then((response) => {
-          //console.log("Response",response);
-          
-          const allData = response.data;
-          //console.log("All Data",allData);
-          
-          const startIndex = (page.value - 1) * defaultperPage.value;
-          //console.log("Start Index",startIndex);
-          
-          const endIndex = startIndex + defaultperPage.value;
-         // console.log("End Index",endIndex);
-          
-          ranks.value = allData.slice(startIndex, endIndex);
-         // console.log("Ranks",ranks.value);
-          
-          totalRanks.value = allData.length;
-         // console.log("Total Ranks",totalRanks.value);
-          
+            const allData = response.data;
+            ranks.value = allData.filter((country: CountrySpring) => 
+                country.countryName.toLowerCase().includes(countryName.toLowerCase())
+            );
+            totalRanks.value = ranks.value.length; // Update total ranks based on search
         })
         .catch(() => {
-          router.push({ name: 'NetworkError' });
+            router.push({ name: 'NetworkError' });
         });
+};
+
+watch(
+    defaultPerPage,
+    (newValue) => {
+        if (newValue != undefined && newValue != null) {
+            defaultPerPage.value = newValue;
+        }
+    },
+    { immediate: true }
+);
+
+const page = computed(() => props.page);
+
+const hasNextPage = computed(() => {
+    const totalPages = Math.ceil(totalRanks.value / defaultPerPage.value);
+    return page.value < totalPages;
+});
+
+onMounted(() => {
+    watchEffect(() => {
+        OlympicService.getRanks(defaultPerPage.value, page.value)
+            .then((response) => {
+                const allData = response.data;
+
+                const startIndex = (page.value - 1) * defaultPerPage.value;
+                const endIndex = startIndex + defaultPerPage.value;
+
+                ranks.value = allData.slice(startIndex, endIndex);
+                totalRanks.value = allData.length;
+
+            })
+            .catch(() => {
+                router.push({ name: 'NetworkError' });
+            });
     });
-  });
-
-
-
+});
 </script>
+
 
 <template>
   <div
