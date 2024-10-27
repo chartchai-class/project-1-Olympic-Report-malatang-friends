@@ -33,10 +33,12 @@ export interface CountrySpring {
   id: number;
   countryName: string;
   flag: string;
-  gold: number;
-  silver: number;
-  bronze: number;
-  totalMedals: number;
+  gold_medals: number;
+  silver_medals: number;
+  bronze_medals: number;
+  total_medals: number;
+  ranking: number;
+  totalRank:number;
 }
 export interface Medal {
   id: string;
