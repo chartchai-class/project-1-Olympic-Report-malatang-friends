@@ -29,5 +29,3 @@
     <th class="p-3">{{ ranking.total_medals }}</th>
   </tr>
 </template>
-
-
