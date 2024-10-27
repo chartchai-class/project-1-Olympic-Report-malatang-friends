@@ -29,6 +29,15 @@ export interface Thumbnail {
   height: number;
 }
 
+export interface CountrySpring {
+  id: number;
+  countryName: string;
+  flag: string;
+  gold: number;
+  silver: number;
+  bronze: number;
+  totalMedals: number;
+}
 export interface Medal {
   id: string;
   name: string;

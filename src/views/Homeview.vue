@@ -57,11 +57,23 @@
     watchEffect(() => {
       OlympicService.getRanks(defaultperPage.value, page.value)
         .then((response) => {
-          const allData = response.data.data;
+          //console.log("Response",response);
+          
+          const allData = response.data;
+          console.log("All Data",allData);
+          
           const startIndex = (page.value - 1) * defaultperPage.value;
+          console.log("Start Index",startIndex);
+          
           const endIndex = startIndex + defaultperPage.value;
+          console.log("End Index",endIndex);
+          
           ranks.value = allData.slice(startIndex, endIndex);
+          console.log("Ranks",ranks.value);
+          
           totalRanks.value = allData.length;
+          console.log("Total Ranks",totalRanks.value);
+          
         })
         .catch(() => {
           router.push({ name: 'NetworkError' });
@@ -181,9 +193,10 @@
             </tr>
           </thead>
           <tbody>
+      
             <medalTable
               v-for="ranking in ranks"
-              :key="ranking.rank"
+              :key="ranking.id"
               :ranking="ranking"
             />
           </tbody>
