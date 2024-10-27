@@ -2,7 +2,7 @@
  import { useAuthStore } from './stores/auth';
  import { useRouter } from 'vue-router';
  import SvgIcon from '@jamescoyle/vue-icon'
-import { mdiAccount, mdiAccountPlus, mdiLogin, mdiViewDashboard } from '@mdi/js';
+import { mdiAccount, mdiAccountPlus, mdiLogin, mdiMapPlus, mdiViewDashboard } from '@mdi/js';
 
 const authStore=useAuthStore()
 const router=useRouter()
@@ -67,6 +67,19 @@ else{
                   </div>
                 </router-link>
               </li>
+
+              <li v-if="authStore.isAdmin" class="nav-item px-2">
+                <router-link 
+                  :to="{name:'users'}"
+                   class="nav-link">
+                  <div class="flex items-center">
+                    <SvgIcon type="mdi" :path="mdiMapPlus"/>
+                    <span class="ml-3">
+                      Add Country
+                    </span>
+                  </div>
+                </router-link>
+                </li>
 
               <li class="nav-item px-2">
                 <router-link to="/profile" class="nav-link">

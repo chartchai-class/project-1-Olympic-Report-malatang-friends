@@ -6,15 +6,11 @@
   import { useRouter,useRoute } from 'vue-router';
   import { useMessageStore } from '@/stores/message';
   import { storeToRefs } from 'pinia';
-  import { useAuthStore } from '@/stores/auth';
+ 
 
   const router=useRouter()
   const route=useRoute()
-
-
   const messageStore=useMessageStore()
-  const {message}=storeToRefs(messageStore)
-
   const users=ref<User[] | null>(null)
   const totalUsers=ref(0)
 
