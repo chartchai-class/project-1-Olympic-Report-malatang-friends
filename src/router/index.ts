@@ -7,6 +7,7 @@ import HomeView from '@/views/Homeview.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import LoginView from '@/views/LoginView.vue';
 import UsersView from '@/views/UsersView.vue';
+import { idText } from 'typescript';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,11 +33,12 @@ const router = createRouter({
       component:RegisterView
     },
     {
-      path: '/countrydetails/:id',
+      path: '/countrydetails/:id/:name',
       name: 'CountryDetails',
       component: Countrydetails,
       props: (route) => ({
-        id: route.params.id,
+        name: route.params.name,
+        id:  parseInt(route.params.id.toString()) ,
       }),
     },
  

@@ -41,9 +41,8 @@ export interface CountrySpring {
   totalRank:number;
 }
 export interface Medal {
-  id: string;
+  id: number;
   name: string;
-  continent: string;
   flag_url: string;
   gold_medals: number;
   silver_medals: number;
@@ -66,7 +65,7 @@ export interface CommentState {
 }
 
 export interface MedalRank {
-  id: string;
+  id: number;
   name: string;
   flag_url: string;
   gold_medals: number;
