@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import medalTable from '@/components/homepageMedalTable.vue';
-  import type { MedalRank, CountrySpring } from '@/types';
+  import type { CountrySpring } from '@/types';
   import { ref, onMounted, computed, watchEffect, inject, watch } from 'vue';
   import OlympicService from '@/services/OlympicAPIServices';
   import background from '@/assets/background.png';

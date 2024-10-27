@@ -10,10 +10,12 @@ export const useCommentStore = defineStore('comment', {
 
   actions: {
 
-    loadComments(userId:number){
+
+    loadComments(userId:number,countryId:number){
       const authStore=useAuthStore();
       return apiClient
-      .get(`/comments?userId=${userId}`,{
+      .get(`/comments?userId=${userId}&countryId=${countryId}`,{
+
         headers: { Authorization: authStore.authorizationHeader }
       })
       .then((response)=>{
@@ -26,15 +28,20 @@ export const useCommentStore = defineStore('comment', {
       })
     },
 
-    submitComment(comment: string, userId: number){
+    submitComment(comment: string, userId: number, countryId: number){
+
       return apiClient
       .post('/comments',
         {
           comment: comment,
-          userId: userId
+
+          userId: userId, 
+          countryId: countryId
         })
         .then((response)=>{
           this.comments.push(response.data);
+
+
           return response;
         })
         .catch((err)=>{
