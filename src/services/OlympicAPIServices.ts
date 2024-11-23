@@ -1,24 +1,26 @@
 import axios, { Axios, type AxiosResponse } from 'axios';
 
-const apiClient = axios.create({
-  baseURL: 'https://cfaef2cc-2a38-4135-b81b-a179cf52e24d.mock.pstmn.io/demo',
-  withCredentials: false,
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-});
+import apiClient from './AxiosClient';
 
 export default {
   getRank() {
-    return apiClient.get('/');
+    return apiClient.get('/home');
   },
   getRanks(perPage: Number, page: Number) {
-    return apiClient.get('/' + '?_limit=' + perPage + '&_page=' + page);
+    return apiClient.get('/home' + '?_limit=' + perPage + '&_page=' + page);
   },
-  getMedalWithSport(id: string) {
-    return apiClient.get('/', {
+  getMedalWithSportId(id: number) {
+    return apiClient.get('/countrydetails/'+id, {
       params: { id },
     });
   },
+  getCountries(name: String='', perPage:Number=10, page: Number=1 ){
+    return apiClient.get('/home',{
+      params:{
+        name,          // Name for searching
+        _limit: perPage, // Optional limit
+        _page: page,    
+      }
+    })
+  }
 };
